@@ -12,11 +12,11 @@ class NotificationPage extends Component {
             <>
                 <Sidebar history={this.props.history}/>
                 <div className="search-buttons">
-                    <input type="text" name="element"  />
-                    <button>DELETE POST</button>
-                    <button>WRITE NEW POST</button>
+                    <input type="text" name="element" className="noti-search" />
+                    <button className="btn-delete">DELETE POST</button>
+                    <button className="btn-add">WRITE NEW POST</button>
                 </div>
-                <table className="common-table" width="500">
+                <table className="common-table" width="1000">
                     <thead>
                         <tr>
                             <th width="150">Title</th>
