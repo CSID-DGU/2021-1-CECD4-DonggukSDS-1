@@ -19,26 +19,29 @@ class AnalysisPage extends Component {
         return (
             <>
                 <Sidebar history={this.props.history}/>
+                <div className="bg">
+                <div id="title">Analysis</div>
                 <div className="menu-group">
-                    <div className="model-div" onClick={() => this.handleClick1()} >
+                    <div className="model-div" onClick={() => this.handleClick1()} style={{color: this.state.showModel ? '#109CF1' : '#71717A'}} >
                         model
                     </div>
-                    <div className="scenario-div" onClick={() => this.handleClick2()}>
+                    <div className="scenario-div" onClick={() => this.handleClick2()} style={{color: this.state.showModel ? '#71717A' : '#109CF1'}}>
                         scenario
                     </div>
                 </div>
                 <div className="model-group" style={{display: this.state.showModel ? '' : 'none'}}>
                     <div className="search-buttons" >
-                        <input type="text" name="element"  />
+                        <input type="text" className="search-text" name="element" placeholder="Search Name" />
 
-                        <button>DELETE MODEL</button>
-                        <button>ADD NEW MODEL</button>
+                        <button className="deleteBtn">DELETE MODEL</button>
+                        <button className="addBtn">ADD NEW MODEL</button>
                     </div>
-                    <table className="common-table" width="500">
+                    <div className="body">
+                    <table className="anal-table">
                         <thead>
                             <tr>
-                                <th width="400">Name</th>
-                                <th width="100">Setting</th>
+                                <th width="1040" align="left">Name</th>
+                                <th width="50">Setting</th>
                             </tr>
                         </thead>
                         
@@ -53,19 +56,21 @@ class AnalysisPage extends Component {
                             </tr>
                         </tbody>
                     </table>
+                    </div>
                 </div>
 
                 <div className="scenario-group" style={{display: this.state.showModel ? 'none' : ''}}>
                     <div className="search-buttons">
-                        <input type="text" name="element"  />
-                        <button>DELETE SCENARIO</button>
-                        <button>ADD NEW SCENARIO</button>
+                        <input type="text" className="search-text" name="element" placeholder="Search Name" />
+                        <button className="deleteBtn">DELETE SCENARIO</button>
+                        <button className="addBtn">ADD NEW SCENARIO</button>
                     </div>
-                    <table className="common-table" width="500">
+                    <div className="body">
+                    <table className="anal-table">
                     <thead>
                             <tr>
-                                <th width="400">Name</th>
-                                <th width="100">Setting</th>
+                                <th width="1040" align="left">Name</th>
+                                <th width="50">Setting</th>
                             </tr>
                         </thead>
                         
@@ -80,8 +85,9 @@ class AnalysisPage extends Component {
                             </tr>
                         </tbody>
                     </table>
+                    </div>
                 </div>
-                
+                </div>
             </>
         );
     }

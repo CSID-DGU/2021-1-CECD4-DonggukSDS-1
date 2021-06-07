@@ -3,7 +3,7 @@ div#Sidebar
     position: absolute;
     margin: 0px;
     width: 255px;
-    height: 100vw;
+    height: 100vh;
 
     background: #363740;
 
@@ -14,8 +14,12 @@ div#Sidebar
         list-style: none;
         padding-left: 0px;
 
+        text-align:center;
+
         li
         {
+            display: inline-block;
+
             width: 255px;
             height: 56px;
         }

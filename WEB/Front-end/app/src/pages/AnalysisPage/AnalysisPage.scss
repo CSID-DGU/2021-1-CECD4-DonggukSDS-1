@@ -1,3 +1,76 @@
+.bg
+{
+    background: #F7FAFC;
+    width: 100vw;
+    height: 100vh;
+
+#title
+{
+
+    display: inline-block;
+    margin-left: 300px;
+    margin-top: 20px;
+
+font-family: Mulish;
+font-style: normal;
+font-weight: bold;
+font-size: 24px;
+line-height: 30px;
+letter-spacing: 0.3px;
+
+/* grayscale / black */
+
+color: #252733;
+
+}
+    
+.search-buttons{
+input:focus
+{
+    outline: none;
+}
+
+button{
+    cursor: pointer;
+}
+
+.search-text{
+    width: 700px;
+    height: 40px;
+    
+    font-family: Poppins;
+font-style: normal;
+font-weight: normal;
+font-size: 13px;
+line-height: 19px;
+/* identical to box height */
+
+letter-spacing: 0.01em;
+
+color: #71717A;
+}
+
+.deleteBtn{
+    margin-left: 10px;
+
+    width: 193px;
+    height: 43px;
+    background: #F7685B;
+    border-radius: 4px;
+    border: none;
+}
+
+.addBtn{
+    margin-left: 10px;
+
+    width: 193px;
+    height: 43px;
+    background: #2196F3;
+    border-radius: 4px;
+    border: none;
+}
+}
+
 .model-group {
 
 }
@@ -7,17 +80,89 @@
 
 .menu-group {
     margin-left: 300px;
-}
 
 .model-div {
-    position: absolute;
-    width: 50px;
-    padding: 50px;
-    border: 1px solid blue;
+/* Data Analysis Model */
+
+display: inline-block;
+
+margin-top: 50px;
+margin-bottom: 20px;
+
+width: 546px;
+height: 134px;
+
+/* Bold 19 (0.4 px) */
+
+font-family: Mulish;
+font-style: normal;
+font-weight: bold;
+font-size: 40px;
+line-height: 24px;
+/* identical to box height */
+
+text-align: center;
+letter-spacing: 0.4px;
+
+/* grayscale */
+
+color: #71717A;
+
+background: #FFFFFF;
+border: 1px solid;
+border-color: #DFE0EB;
+box-sizing: border-box;
+border-radius: 8px;
 }
+
 .scenario-div {
-    width: 50px;
-    padding: 50px;
-    margin-left: 200px;
-    border: 1px solid blue;
+display: inline-block;
+
+margin-left: 20px;
+width: 546px;
+height: 134px;
+
+/* Bold 19 (0.4 px) */
+
+font-family: Mulish;
+font-style: normal;
+font-weight: bold;
+font-size: 40px;
+line-height: 24px;
+/* identical to box height */
+
+text-align: center;
+letter-spacing: 0.4px;
+
+/* grayscale */
+
+color: #109CF1;
+
+background: #FFFFFF;
+border: 1px solid;
+border-color: #DFE0EB;
+box-sizing: border-box;
+border-radius: 8px;
+}
+}
+
+.body{
+    margin-left: 300px;
+    margin-top: 20px;
+    background: #FFFFFF;
+
+    height: 600px;
+    width: 1110px;
+
+    border: 1px solid;
+    border-color: #DFE0EB;
+    border-radius: 8px;
+
+    .anal-table{
+        width: 1090px;
+        margin: 0px;
+        margin-left: 10px;
+    }
+}
+
 }

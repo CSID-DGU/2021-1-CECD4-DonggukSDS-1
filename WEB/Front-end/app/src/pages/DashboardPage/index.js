@@ -11,9 +11,12 @@ class DashboardPage extends Component {
         return (
             <>
                 <Sidebar history={this.props.history}/>
+                <div className="bg">
+                <div id="title">Dashboard</div>
                 <div className="search-buttons">
                     <button>DELETE GRAPH</button>
                     <button>ADD GRAPH</button>
+                </div>
                 </div>
             </>
         );

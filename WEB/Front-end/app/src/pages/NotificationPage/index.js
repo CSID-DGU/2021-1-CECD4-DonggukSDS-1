@@ -11,6 +11,7 @@ class NotificationPage extends Component {
         return (
             <>
                 <Sidebar history={this.props.history}/>
+                <div className="bg">
                 <a className="title-sidebar-name">Notification</a>
                 <div className="search-buttons">
                     <input type="text" name="element" className="noti-search" placeholder="Search Title" />
@@ -39,6 +40,7 @@ class NotificationPage extends Component {
                         </tr>
                     </tbody>
                 </table>
+                </div>
             </>
         );
     }

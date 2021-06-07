@@ -20,12 +20,14 @@ class ControlPage extends Component {
         return (
             <>
                 <Sidebar history={this.props.history}/>
-
+                <div className="bg">
+                <div id="title">Control</div>
                 <div className="menu-group">
-                    <div className="sensor-div"onClick={() => this.handleClick1()} >
+                    <div className="model-div" onClick={() => this.handleClick1()} style={{color: this.state.showSensor ? '#109CF1' : '#71717A'}} >
                         sensor
                     </div>
-                    <div className="device-div" onClick={() => this.handleClick2()}>
+                      
+                    <div className="model-div" onClick={() => this.handleClick2()} style={{color: this.state.showSensor ? '#71717A' : '#109CF1'}} >
                         device
                     </div>
                 </div>
@@ -42,8 +44,8 @@ class ControlPage extends Component {
                             <option value="op2" name="오류 발생">오류 발생</option>
                             <option value="op3" name="확인 불가">확인 불가</option>
                         </select>
-                        <button>DELETE SENSOR</button>
-                        <button>ADD SENSOR</button>
+                        <button className="deleteBtn">DELETE SENSOR</button>
+                        <button className="addBtn">ADD SENSOR</button>
                     </div>
                     <table className="common-table" width="740">
                         <thead>
@@ -91,8 +93,8 @@ class ControlPage extends Component {
                             <option value="op2" name="오류 발생">오류 발생</option>
                             <option value="op3" name="확인 불가">확인 불가</option>
                         </select>
-                        <button>DELETE DEVICE</button>
-                        <button>ADD NEW DEVICE</button>
+                        <button className="deleteBtn">DELETE DEVICE</button>
+                        <button className="addBtn">ADD NEW DEVICE</button>
                     </div>
                     <table className="common-table" width="740">
                         <thead>
@@ -126,7 +128,7 @@ class ControlPage extends Component {
                         </tbody>
                     </table>
                 </div>
-                
+                </div>
             </>
         );
     }
