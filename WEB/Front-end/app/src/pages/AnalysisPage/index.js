@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Sidebar from "../../components/Sidebar"
-import './HomePage.scss'
 
 class HomePage extends Component {
     constructor(props){

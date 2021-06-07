@@ -30,3 +30,4 @@
 /WEB/Back-end/app/npm-debug.log*
 /WEB/Back-end/app/yarn-debug.log*
 /WEB/Back-end/app/yarn-error.log*
+.DS_Store
