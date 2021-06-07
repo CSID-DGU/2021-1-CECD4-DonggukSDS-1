@@ -1,13 +1,18 @@
 import React, { Component } from 'react'
 import Sidebar from "../../components/Sidebar"
-import { useHistory } from 'react-router-dom';
 
-function HomePage() {
-    return (
-        <>
-            <Sidebar/>
-        </>
-    );
+class HomePage extends Component {
+    constructor(props){
+        super(props);
+    }
+
+    render(){
+        return (
+            <>
+                <Sidebar history={this.props.history}/>
+            </>
+        );
+    }
 }
 
 export default HomePage;
