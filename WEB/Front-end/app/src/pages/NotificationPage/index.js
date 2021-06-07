@@ -16,12 +16,12 @@ class NotificationPage extends Component {
                     <button>DELETE POST</button>
                     <button>WRITE NEW POST</button>
                 </div>
-                <table className="common-table">
+                <table className="common-table" width="500">
                     <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Writer</th>
-                            <th>Date</th>
+                            <th width="150">Title</th>
+                            <th width="100">Writer</th>
+                            <th width="250">Date</th>
                         </tr>
                     </thead>
                     
