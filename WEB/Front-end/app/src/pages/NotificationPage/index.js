@@ -11,8 +11,9 @@ class NotificationPage extends Component {
         return (
             <>
                 <Sidebar history={this.props.history}/>
+                <a className="title-sidebar-name">Notification</a>
                 <div className="search-buttons">
-                    <input type="text" name="element" className="noti-search" />
+                    <input type="text" name="element" className="noti-search" placeholder="Search Title" />
                     <button className="btn-delete">DELETE POST</button>
                     <button className="btn-add">WRITE NEW POST</button>
                 </div>

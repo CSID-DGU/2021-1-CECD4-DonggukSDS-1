@@ -5,9 +5,28 @@
     margin-left: 300px;
 
 }
+.title-sidebar-name {
+    position: absolute;
+    height: 44px;
+    left: 285px;
+    right: 33px;
+    top: 30px;
+    
+
+/* Bold 24 (0.3 px) */
+font-family: Mulish;
+font-style: normal;
+font-weight: bold;
+font-size: 24px;
+line-height: 30px;
+letter-spacing: 0.3px;
+
+/* grayscale / black */
+color: #252733;
+}
 
 .noti-search {
-    margin-top: 40px;
+    margin-top: 80px;
     width: 713px;
     height: 43px;
     left: 285px;
@@ -16,6 +35,7 @@
     border: 1px solid #DFE0EB;
     box-sizing: border-box;
     border-radius: 8px;
+    padding-left: 12px;
 }
 
 .btn-delete {

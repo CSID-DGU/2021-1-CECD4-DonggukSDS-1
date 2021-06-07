@@ -20,6 +20,7 @@ class ControlPage extends Component {
         return (
             <>
                 <Sidebar history={this.props.history}/>
+
                 <div className="menu-group">
                     <div className="sensor-div"onClick={() => this.handleClick1()} >
                         sensor
