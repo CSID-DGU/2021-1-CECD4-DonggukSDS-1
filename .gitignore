@@ -16,3 +16,17 @@
 /WEB/Front-end/app/npm-debug.log*
 /WEB/Front-end/app/yarn-debug.log*
 /WEB/Front-end/app/yarn-error.log*
+
+#Back-end
+/WEB/Back-end/app/node_modules
+# production
+/WEB/Back-end/app/build
+# misc
+/WEB/Back-end/app/.DS_Store
+/WEB/Back-end/app/.env.local
+/WEB/Back-end/app/.env.development.local
+/WEB/Back-end/app/.env.test.local
+/WEB/Back-end/app/.env.production.local
+/WEB/Back-end/app/npm-debug.log*
+/WEB/Back-end/app/yarn-debug.log*
+/WEB/Back-end/app/yarn-error.log*
