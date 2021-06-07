@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Sidebar from "../../components/Sidebar"
 
-class HomePage extends Component {
+class AnalysisPage extends Component {
     constructor(props){
         super(props);
     }
@@ -15,4 +15,4 @@ class HomePage extends Component {
     }
 }
 
-export default HomePage;
+export default AnalysisPage;

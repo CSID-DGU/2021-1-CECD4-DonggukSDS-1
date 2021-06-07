@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Sidebar from "../../components/Sidebar"
 import './DashboardPage.scss'
 
-class HomePage extends Component {
+class DashboardPage extends Component {
     constructor(props){
         super(props);
     }
@@ -11,9 +11,13 @@ class HomePage extends Component {
         return (
             <>
                 <Sidebar history={this.props.history}/>
+                <div className="search-buttons">
+                    <button>DELETE GRAPH</button>
+                    <button>ADD GRAPH</button>
+                </div>
             </>
         );
     }
 }
 
-export default HomePage;
+export default DashboardPage;

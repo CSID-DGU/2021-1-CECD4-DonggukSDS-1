@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Sidebar from "../../components/Sidebar"
-import './ControlPage.scss'
+import './NotificationPage.scss'
 
-class ControlPage extends Component {
+class NotificationPage extends Component {
     constructor(props){
         super(props);
     }
@@ -43,4 +43,4 @@ class ControlPage extends Component {
     }
 }
 
-export default ControlPage;
+export default NotificationPage;
