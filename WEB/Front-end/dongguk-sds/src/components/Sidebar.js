@@ -3,7 +3,7 @@ import { SidebarData } from './SidebarData';
 function Sidebar() {
     return (
         <nav className="h-screen w-min bg-gray-800 text-gray-400 text-base">
-            <div className="p-5 items-center text-white">
+            <div className="p-6 items-center text-white">
                 서비스명 들어갈 자리
             </div>
             <ul>
