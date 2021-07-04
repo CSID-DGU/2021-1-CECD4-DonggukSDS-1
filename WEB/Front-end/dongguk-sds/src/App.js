@@ -1,7 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
+// import LoginPage from './pages/LoginPage';
 import Sidebar from './components/Sidebar';
 import HomePage from './pages/HomePage';
 import NotificationPage from './pages/NotificationPage';
@@ -9,22 +8,31 @@ import DashboardPage from './pages/DashboardPage';
 import ControlPage from './pages/ControlPage';
 import AnalysisPage from './pages/AnalysisPage';
 import SettingsPage from './pages/SettingsPage';
+import Header from './components/Header';
 
 function App() {
+
   return (
-    <div className="flex">
-      <Router>
-      <Sidebar />
-      <Switch>
-        <Route path="/Home" component={HomePage} />
-        <Route path="/Notification" component={NotificationPage} />
-        <Route path="/Dashboard" component={DashboardPage} />
-        <Route path="/Control" component={ControlPage} />
-        <Route path="/Analysis" component={AnalysisPage} />
-        <Route path="/Settings" component={SettingsPage} />
-      </Switch>
+    <Router>
+      <div className="flex w-full">
+        <Sidebar />
+        <div className="w-full ml-64">
+          <Header />
+        <div className="px-7 py-3">
+          <Switch>
+            <Route path="/Home" component={HomePage} />
+            <Route path="/Notification" component={NotificationPage} />
+            <Route path="/Dashboard" component={DashboardPage} />
+            <Route path="/Control" component={ControlPage} />
+            <Route path="/Analysis" component={AnalysisPage} />
+            <Route path="/Settings" component={SettingsPage} />
+          </Switch>
+        </div>
+
+        </div>
+      </div>
     </Router>
-    </div>
+
     
     
   );
