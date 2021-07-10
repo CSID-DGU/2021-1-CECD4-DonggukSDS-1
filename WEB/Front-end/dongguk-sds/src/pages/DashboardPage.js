@@ -1,17 +1,17 @@
+import Graph from "../components/Graph";
 
 function DashboardPage() {
   return (
-    <div>
-      <div className="px-7 py-6">
-        <p className="text-xl font-semibold text-gray-800 mb-6">Dashboard</p>
-        <div>
-          <div className="rounded-lg border border-gray-300 p-4">
-            asdf\n
-            asdfasdf\n
-            asdfasdfasdf
-          </div>
-        </div>
+    <div className="w-full h-full">
+      <div className="flex flex-row items-center mb-3 h-10 justify-end">
+
+
+        <button type="button" className="w-60 h-full text-sm text-white font-semibold mr-1.5 shadow-md bg-red-500 rounded-md hover:bg-red-600">DELETE POST</button>
+        <button type="button" className="w-60 h-full text-sm text-white font-semibold ml-1.5 shadow-md bg-blue-500 rounded-md hover:bg-blue-600">WRITE POST</button>
+
       </div>
+      <Graph  />
+      <Graph />
     </div>
   );
 }

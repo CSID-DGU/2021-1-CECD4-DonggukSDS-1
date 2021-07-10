@@ -4,13 +4,13 @@ function NotificationPage() {
   return (
     <div className="w-full h-full">
       <div className="flex flex-row items-center mb-3 h-10 justify-between">
-        <div className="flex w-7/12 h-full items-center rounded-lg border border-gray-300 p-2 pl-4 ">
+        <div className="flex w-full h-full mr-3 items-center rounded-lg border border-gray-300 p-2 pl-4 ">
           <HiSearch size="19" color="gray" />
           <input className="text-sm font-normal border-none ml-3 w-full focus:outline-none" placeholder="Search Title" />
         </div>
 
-        <button type="button" className="w-1/5 h-full text-sm text-white font-semibold shadow-md bg-red-500 rounded-md hover:bg-red-600">DELETE POST</button>
-        <button type="button" className="w-1/5 h-full text-sm text-white font-semibold shadow-md bg-blue-500 rounded-md hover:bg-blue-600">WRITE POST</button>
+        <button type="button" className="w-60 h-full mr-1.5 text-sm text-white font-semibold shadow-md bg-red-500 rounded-md hover:bg-red-600">DELETE POST</button>
+        <button type="button" className="w-60 h-full ml-1.5 text-sm text-white font-semibold shadow-md bg-blue-500 rounded-md hover:bg-blue-600">WRITE POST</button>
 
       </div>
 
