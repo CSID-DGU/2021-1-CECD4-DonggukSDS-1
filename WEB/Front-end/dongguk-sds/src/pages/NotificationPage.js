@@ -1,5 +1,5 @@
-
 import { HiSearch } from 'react-icons/hi'
+
 function NotificationPage() {
   return (
     <div className="w-full h-full">
@@ -25,7 +25,7 @@ function NotificationPage() {
             </tr>
           </thead>
 
-          <tbody className="text-sm font-normal divide-y divide-gray-200">
+          <tbody className="text-sm font-normal text-left divide-y divide-gray-200">
             <tr className="m-4 h-12">
               <td className="w-1/12 text-center"><input type="checkbox" name="selected" value="ROW_1" /></td>
               <td className="w-8/12">안녕하세요</td>
