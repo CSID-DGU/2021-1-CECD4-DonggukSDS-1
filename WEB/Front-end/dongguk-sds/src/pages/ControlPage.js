@@ -1,7 +1,7 @@
 import { IoMdWifi } from 'react-icons/io'
 import { BiDevices } from 'react-icons/bi'
-import ControlSensorContainer from '../components/ControlSensorContainer'
-import ControlDeviceContainer from '../components/ControlDeviceContainer'
+import ControlSensorContainer from '../container/ControlSensorContainer'
+import ControlDeviceContainer from '../container/ControlDeviceContainer'
 import { useState } from 'react'
 
 function ControlPage() {
