@@ -10,8 +10,11 @@ function DashboardPage() {
         <button type="button" className="w-60 h-full text-sm text-white font-semibold ml-1.5 shadow-md bg-blue-500 rounded-md hover:bg-blue-600">WRITE POST</button>
 
       </div>
-      <Graph  />
-      <Graph />
+      <div className="w-full h-screen">
+        <Graph  />
+        <Graph />
+      </div>
+      
     </div>
   );
 }
