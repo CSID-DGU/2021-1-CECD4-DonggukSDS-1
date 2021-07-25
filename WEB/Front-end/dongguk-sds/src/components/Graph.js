@@ -9,9 +9,9 @@ function Graph() {
         { quarter: 4, earnings: 19000 }
       ];
     return (
-        // <Draggable
-        //     bounds="parent"
-        // >
+        <Draggable
+            bounds="parent"
+        >
             <div className="w-max h-auto mb-6 rounded-lg border border-gray-300 p-6 resize overflow-hidden">
                 <div className="flex flex-row items-center justify-between mb-3">
                     <p className="font-bold text-base">신공학관 전체 전기 사용량</p>
@@ -24,7 +24,7 @@ function Graph() {
 
 
             </div>
-        // </Draggable>
+        </Draggable>
     );
 }
 

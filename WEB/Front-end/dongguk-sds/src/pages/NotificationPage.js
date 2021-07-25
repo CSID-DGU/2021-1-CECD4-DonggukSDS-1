@@ -2,7 +2,7 @@ import { HiSearch } from 'react-icons/hi'
 
 function NotificationPage() {
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full px-7 py-3">
       <div className="flex flex-row items-center mb-3 h-10 justify-between">
         <div className="flex w-full h-full mr-3 items-center rounded-lg border border-gray-300 p-2 pl-4 ">
           <HiSearch size="19" color="gray" />

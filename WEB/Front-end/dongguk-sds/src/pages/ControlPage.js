@@ -11,7 +11,7 @@ function ControlPage() {
   const inActiveClassName = "flex flex-col w-1/2 pb-3 pt-3 rounded-lg border border-gray-300 items-center text-gray-400"
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full px-7 py-3">
       <div className="flex justify-between mb-3">
         <button className={ page == "sensor" ? activeClassName+" mr-3" : inActiveClassName+" mr-3" } onClick={ ()=> setPage("sensor") }>
           <IoMdWifi size="48"/>

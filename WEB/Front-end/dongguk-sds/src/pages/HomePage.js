@@ -3,7 +3,7 @@ import { RiErrorWarningFill } from 'react-icons/ri'
 
 function HomePage() {
   return (
-    <div className="flex flex-col w-full h-full">    
+    <div className="flex flex-col w-full h-full px-7 py-3">    
       <div className="h-3/5 w-full mb-6 rounded-lg border border-gray-300 p-6">
           <p className="font-bold text-base mb-1">신공학관 전체 전기 사용량</p>
           <p className="font-medium text-xs text-gray-400 mb-1">2021-05-16 01:51:00</p>

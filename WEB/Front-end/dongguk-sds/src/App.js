@@ -14,20 +14,18 @@ function App() {
 
   return (
     <Router>
-      <div className="flex w-full">
+      <div className="flex absoltue w-screen h-screen relative overflow-hidden">
         <Sidebar />
-        <div className="w-full ml-64">
+        <div className="flex-1 h-full overflow-scroll relative flex flex-col">
           <Header />
-        <div className="px-7 py-3">
-          <Switch>
-            <Route path="/Home" component={HomePage} />
-            <Route path="/Notification" component={NotificationPage} />
-            <Route path="/Dashboard" component={DashboardPage} />
-            <Route path="/Control" component={ControlPage} />
-            <Route path="/Analysis" component={AnalysisPage} />
-            <Route path="/Settings" component={SettingsPage} />
-          </Switch>
-        </div>
+            <Switch>
+              <Route path="/Home" component={HomePage} />
+              <Route path="/Notification" component={NotificationPage} />
+              <Route path="/Dashboard" component={DashboardPage} />
+              <Route path="/Control" component={ControlPage} />
+              <Route path="/Analysis" component={AnalysisPage} />
+              <Route path="/Settings" component={SettingsPage} />
+            </Switch>
 
         </div>
       </div>

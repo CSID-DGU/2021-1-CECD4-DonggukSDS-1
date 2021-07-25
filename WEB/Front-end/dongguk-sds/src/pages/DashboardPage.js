@@ -2,7 +2,7 @@ import Graph from "../components/Graph";
 
 function DashboardPage() {
   return (
-    <div className="w-full h-full">
+    <div className="w-full px-7 py-3 flex-col flex flex-1">
       <div className="flex flex-row items-center mb-3 h-10 justify-end">
 
 
@@ -10,11 +10,10 @@ function DashboardPage() {
         <button type="button" className="w-60 h-full text-sm text-white font-semibold ml-1.5 shadow-md bg-blue-500 rounded-md hover:bg-blue-600">WRITE POST</button>
 
       </div>
-      <div className="w-full h-screen">
+      <div className="relative flex-1">
         <Graph  />
         <Graph />
       </div>
-      
     </div>
   );
 }
