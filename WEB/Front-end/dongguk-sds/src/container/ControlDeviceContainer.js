@@ -46,20 +46,38 @@ function ControlDeviceContainer() {
           <tbody className="text-sm font-normal divide-y divide-gray-200">
             <tr className="m-4 h-12">
               <td className="w-1/12 text-center"><input type="checkbox" name="selected" value="ROW_1" /></td>
-              <td className="w-2/12">에어컨/히터1</td>
+              <td className="w-2/12">스마트 게이트웨이1</td>
               <td className="w-2/12">신공학관 3층 3106</td>
-              <td className="w-2/12">3106_airconditioner1</td>
-              <td className="w-2/12">정상</td>
-              <td className="w-2/12">10분</td>
+              <td className="w-2/12">3106_smart_gateway_01</td>
+              <td className="w-2/12">On</td>
+              <td className="w-2/12">600</td>
               <td className="w-1/12"><AiFillSetting className="text-gray-800 m-auto" size="20"/></td>
             </tr>
             <tr className="m-4 h-12">
               <td className="w-1/12 text-center"><input type="checkbox" name="selected" value="ROW_1" /></td>
-              <td className="w-2/12">에어컨/히터2</td>
-              <td className="w-2/12">신공학관 3층 3107</td>
-              <td className="w-2/12">3107_airconditioner2</td>
-              <td className="w-2/12">정상</td>
-              <td className="w-2/12">10분</td>
+              <td className="w-2/12">스마트 전등 스위치1</td>
+              <td className="w-2/12">신공학관 3층 3106</td>
+              <td className="w-2/12">3106_smart_switch_01</td>
+              <td className="w-2/12">On</td>
+              <td className="w-2/12">600</td>
+              <td className="w-1/12"><AiFillSetting className="text-gray-800 m-auto" size="20"/></td>
+            </tr>
+            <tr className="m-4 h-12">
+              <td className="w-1/12 text-center"><input type="checkbox" name="selected" value="ROW_1" /></td>
+              <td className="w-2/12">스마트 콘센트1</td>
+              <td className="w-2/12">신공학관 3층 3106</td>
+              <td className="w-2/12">3106_power_socket_01</td>
+              <td className="w-2/12">On</td>
+              <td className="w-2/12">720</td>
+              <td className="w-1/12"><AiFillSetting className="text-gray-800 m-auto" size="20"/></td>
+            </tr>
+            <tr className="m-4 h-12">
+              <td className="w-1/12 text-center"><input type="checkbox" name="selected" value="ROW_1" /></td>
+              <td className="w-2/12">스마트 IR리모컨1</td>
+              <td className="w-2/12">신공학관 3층 3106</td>
+              <td className="w-2/12">3106_ir_controller_01</td>
+              <td className="w-2/12">On</td>
+              <td className="w-2/12">240</td>
               <td className="w-1/12"><AiFillSetting className="text-gray-800 m-auto" size="20"/></td>
             </tr>
           </tbody>
