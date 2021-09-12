@@ -19,8 +19,22 @@ function HomePage() {
               <AiFillNotification className="text-yellow-400" size="20" />
               <p className="font-bold text-base ml-2">Today’s Notification</p>
             </div>
-
-
+            <table className="table-fixed w-full mt-3">
+              <tbody className="text-sm font-normal text-left divide-y divide-gray-200">
+                <tr className="m-4 h-12">
+                  <td className="w-9/12">안녕하세요</td>
+                  <td className="w-3/12 text-gray-400 text-right">송혜민</td>
+                </tr>
+                <tr className="m-4 h-12">
+                  <td className="w-9/12">안녕하세요</td>
+                  <td className="w-3/12 text-gray-400 text-right">송혜민</td>
+                </tr>
+                <tr className="m-4 h-12">
+                  <td className="w-9/12">안녕하세요</td>
+                  <td className="w-3/12 text-gray-400 text-right">송혜민</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
@@ -30,6 +44,22 @@ function HomePage() {
               <RiErrorWarningFill className="text-red-500" size="20" />
               <p className="font-bold text-base ml-2">Sensor Emergency</p>
             </div>
+            <table className="table-fixed w-full mt-3">
+              <tbody className="text-sm font-normal text-left divide-y divide-gray-200">
+                <tr className="m-4 h-12">
+                  <td className="w-6/12">스마트 전등스위치</td>
+                  <td className="w-6/12 text-gray-400 text-right">신공학관 4층 4011</td>
+                </tr>
+                <tr className="m-4 h-12">
+                  <td className="w-6/12">스마트 전등스위치</td>
+                  <td className="w-6/12 text-gray-400 text-right">신공학관 4층 4011</td>
+                </tr>
+                <tr className="m-4 h-12">
+                  <td className="w-6/12">스마트 전등스위치</td>
+                  <td className="w-6/12 text-gray-400 text-right">신공학관 4층 4011</td>
+                </tr>
+              </tbody>
+            </table>
 
 
           </div>
