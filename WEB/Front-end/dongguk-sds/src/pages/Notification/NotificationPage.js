@@ -15,6 +15,7 @@ function NotificationPage({ match}) {
     
 
     
+  );
 }
 
 export default NotificationPage;
