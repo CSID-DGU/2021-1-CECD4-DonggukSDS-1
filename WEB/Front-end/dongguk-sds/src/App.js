@@ -5,12 +5,12 @@ import { Redirect } from "react-router-dom";
 import LoginPage from './pages/LoginPage';
 import Sidebar from './components/Sidebar';
 import HomePage from './pages/HomePage';
-import NotificationPage from './pages/NotificationPage';
 import DashboardPage from './pages/DashboardPage';
 import ControlPage from './pages/ControlPage';
 import AnalysisPage from './pages/AnalysisPage';
 import SettingsPage from './pages/SettingsPage';
 import Header from './components/Header';
+import NotificationPage from './pages/Notification/NotificationPage';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false)

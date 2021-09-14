@@ -1,6 +1,15 @@
 import { HiSearch } from 'react-icons/hi'
+import { useHistory, Link } from "react-router-dom";
+import { NotificationData } from './NotificationData';
 
-function NotificationPage() {
+function NotificationListPage() {
+  const history = useHistory();
+
+  function goToWriteMode() {
+    history.push("/Notification/write");
+    console.log("click button");
+  }
+
   return (
     <div className="w-full h-full px-7 py-3">
       <div className="flex flex-row items-center mb-3 h-10 justify-between">
@@ -10,7 +19,7 @@ function NotificationPage() {
         </div>
 
         <button type="button" className="w-60 h-full mr-1.5 text-sm text-white font-semibold shadow-md bg-red-500 rounded-md hover:bg-red-600">DELETE POST</button>
-        <button type="button" className="w-60 h-full ml-1.5 text-sm text-white font-semibold shadow-md bg-blue-500 rounded-md hover:bg-blue-600">WRITE POST</button>
+        <button type="button" onClick={goToWriteMode} className="w-60 h-full ml-1.5 text-sm text-white font-semibold shadow-md bg-blue-500 rounded-md hover:bg-blue-600">WRITE POST</button>
 
       </div>
 
@@ -26,24 +35,22 @@ function NotificationPage() {
           </thead>
 
           <tbody className="text-sm font-normal text-left divide-y divide-gray-200">
-            <tr className="m-4 h-12">
-              <td className="w-1/12 text-center"><input type="checkbox" name="selected" value="ROW_1" /></td>
-              <td className="w-8/12">안녕하세요</td>
-              <td className="w-2/12">송혜민</td>
-              <td className="w-2/12">2020.07.05, 20:10</td>
-            </tr>
-            <tr className="m-4 h-12">
-              <td className="w-1/12 text-center"><input type="checkbox" name="selected" value="ROW_1" /></td>
-              <td className="w-8/12">안녕하세요</td>
-              <td className="w-2/12">송혜민</td>
-              <td className="w-2/12">2020.07.05, 20:10</td>
-            </tr>
+
+          { NotificationData.map((item, index) => {
+                    return (
+                      <tr className="m-4 h-12" key={index}>
+                        <td className="w-1/12 text-center"><input type="checkbox" name="selected" value={`ROW_${index}`} /></td>
+                        <td className="w-8/12"><Link to={`Notification/${index}`}>{item.title}</Link></td>
+                        <td className="w-2/12">{item.author}</td>
+                        <td className="w-2/12">{item.date}</td>
+                      </tr>
+                    )
+            })}
           </tbody>
         </table>
       </div>
-
     </div>
   );
 }
 
-export default NotificationPage;
+export default NotificationListPage;
