@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import { HiSearch } from 'react-icons/hi'
 import { AiFillSetting } from 'react-icons/ai';
 
 function ControlSensorContainer() {
+  const [isCheckAll, setIsCheckAll] = useState(false);
+
   return (
     <div className="w-full h-full">
       <div className="flex flex-row items-center mb-3 h-10 justify-between">
@@ -23,15 +26,14 @@ function ControlSensorContainer() {
         </select>
 
         <button type="button" className="w-80 h-full mr-3 text-sm text-white font-semibold shadow-md bg-red-500 rounded-md hover:bg-red-600">DELETE SENSOR</button>
-        <button type="button" className="w-80 h-full text-sm text-white font-semibold shadow-md bg-blue-500 rounded-md hover:bg-blue-600">WRITE SENSOR</button>
-
+        <button type="button" className="w-80 h-full text-sm text-white font-semibold shadow-md bg-blue-500 rounded-md hover:bg-blue-600">ADD SENSOR</button>
       </div>
 
       <div className="rounded-lg border border-gray-300 p-1">
         <table className="table-fixed w-full">
           <thead>
             <tr className="h-10 text-sm font-light text-gray-300 text-left border-b-2">
-              <th className="w-1/12 text-center"><input type="checkbox" name="selected_all" /></th>
+              <th className="w-1/12 text-center"><input type="checkbox" name="selected_all" onClick={(e) => setIsCheckAll(e.target.value)} /></th>
               <th className="w-2/12">Name</th>
               <th className="w-2/12">Location</th>
               <th className="w-2/12">Column</th>
@@ -96,7 +98,6 @@ function ControlSensorContainer() {
               <td className="w-2/12">120</td>
               <td className="w-1/12"><AiFillSetting className="text-gray-800 m-auto" size="20"/></td>
             </tr>
-
           </tbody>
         </table>
       </div>

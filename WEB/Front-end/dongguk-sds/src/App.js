@@ -11,6 +11,7 @@ import AnalysisPage from './pages/AnalysisPage';
 import SettingsPage from './pages/SettingsPage';
 import Header from './components/Header';
 import NotificationPage from './pages/Notification/NotificationPage';
+import SignUpPage from './pages/SignUpPage';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false)
@@ -21,6 +22,7 @@ function App() {
       {!isAuth ? <Redirect to="/login" /> : <Redirect to="/" />}
       <Switch>
         <Route path="/Login" component={LoginPage}/>
+        <Route path="/Signup" component={SignUpPage}/>
         <Route path="/">
           <Router>
             <div className="flex absoltue w-screen h-screen relative overflow-hidden">

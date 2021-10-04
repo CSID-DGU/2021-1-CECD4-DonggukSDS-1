@@ -20,7 +20,6 @@ function NotificationListPage() {
 
         <button type="button" className="w-60 h-full mr-1.5 text-sm text-white font-semibold shadow-md bg-red-500 rounded-md hover:bg-red-600">DELETE POST</button>
         <button type="button" onClick={goToWriteMode} className="w-60 h-full ml-1.5 text-sm text-white font-semibold shadow-md bg-blue-500 rounded-md hover:bg-blue-600">WRITE POST</button>
-
       </div>
 
       <div className="rounded-lg border border-gray-300 p-1">
