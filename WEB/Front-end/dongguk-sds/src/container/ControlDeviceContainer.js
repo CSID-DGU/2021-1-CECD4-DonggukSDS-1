@@ -1,8 +1,28 @@
+import { useState } from 'react';
 import { HiSearch } from 'react-icons/hi'
 import { AiFillSetting } from 'react-icons/ai'
 import { ControlDeviceData } from '../dummyDatas/ControlDeviceData';
 
 function ControlDeviceContainer() {
+  const [checkedItems, setCheckedItems] = useState([]);
+
+  function checkItemHandler(id, isChecked) {
+    if(isChecked) { // check
+      setCheckedItems([...checkedItems,id]);
+    } else { // uncheck
+      setCheckedItems(checkedItems.filter((ele) => ele !== id));
+    }
+  }
+
+  function checkAllItemsHandler(checked) {
+    if(checked) {
+      const idArray = [];
+      ControlDeviceData.forEach((ele) => idArray.push(ele.id));
+      setCheckedItems(idArray);
+    } else {
+      setCheckedItems([]);
+    }
+  }
 
   return (
     <div className="w-full h-full">
@@ -33,7 +53,7 @@ function ControlDeviceContainer() {
         <table className="table-fixed w-full">
           <thead>
             <tr className="h-10 text-sm font-light text-gray-300 text-left border-b-2">
-              <th className="w-1/12 text-center"><input type="checkbox" name="selected_all" /></th>
+              <th className="w-1/12 text-center"><input type="checkbox" name="selected_all" onChange={(e) => checkAllItemsHandler(e.target.checked)} checked={ checkedItems.length === ControlDeviceData.length }/></th>
               <th className="w-2/12">Name</th>
               <th className="w-3/12">Location</th>
               <th className="w-3/12">Column</th>
@@ -46,7 +66,7 @@ function ControlDeviceContainer() {
             { ControlDeviceData.map((item, index) => {
                     return (
                       <tr className="m-4 h-12" key={index}>
-                        <td className="w-1/12 text-center"><input type="checkbox" name="selected" value={`ROW_`+index} /></td>
+                        <td className="w-1/12 text-center"><input type="checkbox" name="selected" value={`ROW_`+index} onChange={(e) => checkItemHandler(item.id, e.target.checked)} checked={ checkedItems.length === ControlDeviceData.length || checkedItems.includes(item.id) }/></td>
                         <td className="w-2/12">{item.name}</td>
                         <td className="w-3/12">{item.location}</td>
                         <td className="w-3/12">{item.column}</td>

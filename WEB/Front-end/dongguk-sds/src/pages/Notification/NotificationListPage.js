@@ -1,14 +1,36 @@
 import { HiSearch } from 'react-icons/hi'
 import { useHistory, Link } from "react-router-dom";
 import { NotificationData } from '../../dummyDatas/NotificationData';
+import { useState } from 'react';
+import { postcss } from 'cssnano';
 
 function NotificationListPage() {
   const history = useHistory();
+  const [checkedItems, setCheckedItems] = useState([]);
 
   function goToWriteMode() {
     history.push("/Notification/write");
     console.log("click button");
   }
+
+  function checkItemHandler(id, isChecked) {
+    if(isChecked) { // check
+      setCheckedItems([...checkedItems,id]);
+    } else { // uncheck
+      setCheckedItems(checkedItems.filter((ele) => ele !== id));
+    }
+  }
+
+  function checkAllItemsHandler(checked) {
+    if(checked) {
+      const idArray = [];
+      NotificationData.forEach((ele) => idArray.push(ele.id));
+      setCheckedItems(idArray);
+    } else {
+      setCheckedItems([]);
+    }
+  }
+  // console.log(checkedItems);
 
   return (
     <div className="w-full h-full px-7 py-3">
@@ -26,7 +48,7 @@ function NotificationListPage() {
         <table className="table-fixed w-full">
           <thead>
             <tr className="h-10 text-sm font-light text-gray-300 text-left border-b-2">
-              <th className="w-1/12 text-center"><input type="checkbox" name="selected_all" /></th>
+              <th className="w-1/12 text-center"><input type="checkbox" name="selected_all" onChange={(e) => checkAllItemsHandler(e.target.checked)} checked={ checkedItems.length === NotificationData.length }/></th>
               <th className="w-8/12">Title</th>
               <th className="w-2/12">Author</th>
               <th className="w-2/12">Date</th>
@@ -38,7 +60,7 @@ function NotificationListPage() {
           { NotificationData.map((item, index) => {
                     return (
                       <tr className="m-4 h-12" key={index}>
-                        <td className="w-1/12 text-center"><input type="checkbox" name="selected" value={`ROW_${index}`} /></td>
+                        <td className="w-1/12 text-center"><input type="checkbox" name="selected" value={`ROW_${index}`} onChange={(e) => checkItemHandler(item.id, e.target.checked)} checked={ checkedItems.length === NotificationData.length || checkedItems.includes(item.id) }/></td>
                         <td className="w-8/12"><Link to={`Notification/${index}`}>{item.title}</Link></td>
                         <td className="w-2/12">{item.author}</td>
                         <td className="w-2/12">{item.date}</td>

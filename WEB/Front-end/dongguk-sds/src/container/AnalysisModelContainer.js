@@ -1,8 +1,30 @@
 import { HiSearch } from 'react-icons/hi'
 import { AiFillSetting } from 'react-icons/ai'
+import { useState } from 'react';
 
+var AnalysisModelData = ["강의 종료 모델", "인물 존재 감지"]
+function AnalysisModelContainer() {
+  const [checkedItems, setCheckedItems] = useState([]);
 
-function ControlDeviceContainer() {
+  function checkItemHandler(id, isChecked) {
+    if(isChecked) { // check
+      setCheckedItems([...checkedItems,id]);
+    } else { // uncheck
+      setCheckedItems(checkedItems.filter((ele) => ele !== id));
+    }
+  }
+
+  function checkAllItemsHandler(checked) {
+    if(checked) {
+      const idArray = [];
+      for(var i = 0 ; i < AnalysisModelData.length ; i++) {
+        idArray.push(i);
+      }
+      setCheckedItems(idArray);
+    } else {
+      setCheckedItems([]);
+    }
+  }
 
   return (
     <div className="w-full h-full">
@@ -21,23 +43,22 @@ function ControlDeviceContainer() {
         <table className="table-fixed w-full">
           <thead>
             <tr className="h-10 text-sm font-light text-gray-300 text-left border-b-2">
-              <th className="w-1/12 text-center"><input type="checkbox" name="selected_all" /></th>
+              <th className="w-1/12 text-center"><input type="checkbox" name="selected_all" onChange={(e) => checkAllItemsHandler(e.target.checked)} checked={ checkedItems.length === AnalysisModelData.length } /></th>
               <th className="w-10/12">Name</th>
               <th className="w-1/12 text-center">Setting</th>
             </tr>
           </thead>
 
           <tbody className="text-sm font-normal divide-y divide-gray-200">
-            <tr className="m-4 h-12">
-              <td className="w-1/12 text-center"><input type="checkbox" name="selected" value="ROW_1" /></td>
-              <td className="w-10/12">강의 종료 모델</td>
-              <td className="w-1/12"><AiFillSetting className="text-gray-800 m-auto" size="20"/></td>
-            </tr>
-            <tr className="m-4 h-12">
-              <td className="w-1/12 text-center"><input type="checkbox" name="selected" value="ROW_1" /></td>
-              <td className="w-10/12">인물 존재 감지</td>
-              <td className="w-1/12"><AiFillSetting className="text-gray-800 m-auto" size="20"/></td>
-            </tr>
+          { AnalysisModelData.map((item, index) => {
+                    return (
+                      <tr className="m-4 h-12">
+                        <td className="w-1/12 text-center"><input type="checkbox" name="selected" value={`ROW_`+index}  onChange={(e) => checkItemHandler(index, e.target.checked)} checked={ checkedItems.length === AnalysisModelData.length || checkedItems.includes(index) }/></td>
+                        <td className="w-10/12">{item}</td>
+                        <td className="w-1/12"><AiFillSetting className="text-gray-800 m-auto" size="20" /></td>
+                      </tr>
+                    )
+            })}
           </tbody>
         </table>
       </div>
@@ -45,4 +66,4 @@ function ControlDeviceContainer() {
   );
 }
 
-export default ControlDeviceContainer;
+export default AnalysisModelContainer;
