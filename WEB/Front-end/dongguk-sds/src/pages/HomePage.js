@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { AiFillNotification } from 'react-icons/ai';
 import { RiErrorWarningFill } from 'react-icons/ri';
-import { NotificationData } from './Notification/NotificationData';
+import { NotificationData } from '../dummyDatas/NotificationData';
 
 function HomePage() {
   const dateInstance = new Date()
@@ -51,17 +51,7 @@ function HomePage() {
                 <tr className="m-4 h-12">
                   <td className="w-6/12">스마트 전등스위치</td>
                   <td className="w-6/12 text-gray-400 text-right">신공학관 4층 4011</td>
-                </tr>
-                <tr className="m-4 h-12">
-                  <td className="w-6/12">스마트 전등스위치</td>
-                  <td className="w-6/12 text-gray-400 text-right">신공학관 4층 4011</td>
-                </tr>
-                <tr className="m-4 h-12">
-                  <td className="w-6/12">스마트 전등스위치</td>
-                  <td className="w-6/12 text-gray-400 text-right">신공학관 4층 4011</td>
-                </tr>
-
-                
+                </tr>                
               </tbody>
             </table>
 

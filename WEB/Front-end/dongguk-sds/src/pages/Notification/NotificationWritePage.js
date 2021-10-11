@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
-import { NotificationData } from "./NotificationData";
+import { NotificationData } from '../../dummyDatas/NotificationData';
 
 function NotificationWritePage() {
   const history = useHistory();

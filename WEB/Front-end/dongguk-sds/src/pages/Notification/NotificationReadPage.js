@@ -1,4 +1,4 @@
-import { NotificationData } from "./NotificationData";
+import { NotificationData } from '../../dummyDatas/NotificationData';
 
 function NotificationReadPage( { match } ) {
   const { no } = match.params;

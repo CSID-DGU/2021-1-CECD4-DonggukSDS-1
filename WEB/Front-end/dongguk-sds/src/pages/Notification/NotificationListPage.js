@@ -1,6 +1,6 @@
 import { HiSearch } from 'react-icons/hi'
 import { useHistory, Link } from "react-router-dom";
-import { NotificationData } from './NotificationData';
+import { NotificationData } from '../../dummyDatas/NotificationData';
 
 function NotificationListPage() {
   const history = useHistory();
