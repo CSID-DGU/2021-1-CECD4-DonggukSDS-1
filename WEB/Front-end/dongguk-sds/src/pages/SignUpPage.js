@@ -10,7 +10,7 @@ function SignUpPage() {
   const history = useHistory();
 
   function submit() {
-    if(userId == "" || userPw == "" || userPwConfirm == "" || userName == ""){
+    if(userId === "" || userPw === "" || userPwConfirm === "" || userName === ""){
       alert("빈 칸을 모두 채워주세요.");
     } else {
       // API response 확인 후

@@ -1,20 +1,19 @@
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import { Redirect } from "react-router-dom";
 import LoginPage from './pages/LoginPage';
 import Sidebar from './components/Sidebar';
 import HomePage from './pages/HomePage';
 import DashboardPage from './pages/DashboardPage';
-import ControlPage from './pages/ControlPage';
-import AnalysisPage from './pages/AnalysisPage';
+import ControlPage from './pages/Control/ControlPage';
+import AnalysisPage from './pages/Analysis/AnalysisPage';
 import SettingsPage from './pages/SettingsPage';
 import Header from './components/Header';
 import NotificationPage from './pages/Notification/NotificationPage';
 import SignUpPage from './pages/SignUpPage';
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false)
+  // const [isLogin, setIsLogin] = useState(false)
   const isAuth = sessionStorage.getItem("userId")
 
   return (

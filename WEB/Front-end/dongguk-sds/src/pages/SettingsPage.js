@@ -1,16 +1,16 @@
-import { UserData } from "../dummyDatas/UserData";
+// import { UserData } from "../dummyDatas/UserData";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 
 function SettingsPage() {
-  const history = useHistory();
+  // const history = useHistory();
 
   const [userOriginalPw, setUserOriginalPw] = useState("");
   const [userNewPw, setUserNewPw] = useState("");
   const [userPwConfirm, setUserPwConfirm] = useState("");
 
   function submit() {
-    if(userNewPw == "" || userPwConfirm == ""){
+    if(userNewPw === "" || userPwConfirm === ""){
       alert("빈 칸을 모두 채워주세요.");
     } else {
       // API response 확인 후

@@ -9,7 +9,7 @@ function LoginPage() {
   const history = useHistory();
 
   function submit() {
-    if(userId == "admin" && userPw == "1234") { // 성공
+    if(userId === "admin" && userPw === "1234") { // 성공
       sessionStorage.setItem("userId", userId);
       history.push("/Home");
     } else {

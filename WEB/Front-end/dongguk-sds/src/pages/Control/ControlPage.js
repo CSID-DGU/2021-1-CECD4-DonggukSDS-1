@@ -1,7 +1,7 @@
 import { IoMdWifi } from 'react-icons/io'
 import { BiDevices } from 'react-icons/bi'
-import ControlSensorContainer from '../container/ControlSensorContainer'
-import ControlDeviceContainer from '../container/ControlDeviceContainer'
+import ControlSensorContainer from './ControlSensorContainer'
+import ControlDeviceContainer from './ControlDeviceContainer'
 import { useState } from 'react'
 
 function ControlPage() {
@@ -13,16 +13,16 @@ function ControlPage() {
   return (
     <div className="w-full px-7 py-3">
       <div className="flex justify-between mb-3">
-        <button className={ page == "sensor" ? activeClassName+" mr-3" : inActiveClassName+" mr-3" } onClick={ ()=> setPage("sensor") }>
+        <button className={ page === "sensor" ? activeClassName+" mr-3" : inActiveClassName+" mr-3" } onClick={ ()=> setPage("sensor") }>
           <IoMdWifi size="48"/>
           <span className="text-lg font-medium">Sensor</span>
         </button>
-        <button className={ page == "device" ? activeClassName : inActiveClassName } onClick={ ()=> setPage("device") }>
+        <button className={ page === "device" ? activeClassName : inActiveClassName } onClick={ ()=> setPage("device") }>
           <BiDevices size="48"/>
           <span className="text-lg font-medium">Device</span>
         </button>
       </div>
-      { page == "sensor" ? <ControlSensorContainer/> : <ControlDeviceContainer/>}
+      { page === "sensor" ? <ControlSensorContainer/> : <ControlDeviceContainer/>}
       
     </div>
   );
