@@ -3,6 +3,8 @@ import { useHistory, Link } from "react-router-dom";
 import { NotificationData } from '../../dummyDatas/NotificationData';
 import { useState } from 'react';
 
+// TO DO : Search한 다음에 전체선택 체크박스 누르고 delete하면 싹 날아가는 버그있음 (코드에서 전체 게시물을 지우는걸로 설정했기 때문에)
+
 function NotificationListPage() {
   const history = useHistory();
   const [checkedItems, setCheckedItems] = useState([]);
@@ -42,7 +44,7 @@ function NotificationListPage() {
   function checkAllItemsHandler(checked) {
     if(checked) {
       const idArray = [];
-      NotificationData.forEach((ele) => idArray.push(ele.id));
+      NotificationData.forEach((ele) => idArray.push(ele.id)); // 고쳐야함, Search 결과에서 전체 선택 삭제하는 것으로
       setCheckedItems(idArray);
     } else {
       setCheckedItems([]);
