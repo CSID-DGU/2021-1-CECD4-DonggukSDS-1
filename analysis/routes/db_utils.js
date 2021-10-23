@@ -12,6 +12,56 @@ var pool = mysql.createPool({
   database: "DGUSDS"
 });
 
+
+exports.select_sensor = function(sensor_type, sensor_id, room_id, range,callback) {
+  pool.getConnection(function (err, con) {
+    // Use the connection
+    query = 'SELECT data.id, data.sensor_id, room. FROM sensor_data as data, sensor_info as info, room_info as room, room_sensor WHERE '
+    con.query('INSERT INTO user(nickname) VALUES (?)', [userName],
+      function (err, result) {
+        con.release(); // Don't use the connection here, it has been returned to the pool.
+        if (err) {
+          console.error("err : " + err);
+          return callback(err);
+        }
+        
+        if(result.length <= 0)
+        {
+          debug.log('already exists');
+          return callback(null, -1);
+        }
+        userId = result.insertId;
+        console.log("uuuu1 :" + userId);
+        return callback(null,userId);
+    });
+  }); 
+}
+
+exports.insert_user = function(userName,callback) {
+  var userId;
+
+  pool.getConnection(function (err, con) {
+    // Use the connection
+    con.query('INSERT INTO user(nickname) VALUES (?)', [userName],
+      function (err, result) {
+        con.release(); // Don't use the connection here, it has been returned to the pool.
+        if (err) {
+          console.error("err : " + err);
+          return callback(err);
+        }
+        
+        if(result.length <= 0)
+        {
+          debug.log('already exists');
+          return callback(null, -1);
+        }
+        userId = result.insertId;
+        console.log("uuuu1 :" + userId);
+        return callback(null,userId);
+    });
+  }); 
+}
+
 exports.insert_user = function(userName,callback) {
   var userId;
 

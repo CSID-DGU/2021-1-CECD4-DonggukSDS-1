@@ -34,12 +34,12 @@ var debug = require('./debugTool');
 /* GET home page. */
 router.post('/fetch', function (req, res, next) {
 	debug.log(req.body);
-	var inSensor = req.body.sensor_type;
-	var inRoom = req.body.sensor_id;
-	var inDate = req.body.target_room;
-	var inDate = req.body.range;
+	var sensor_type = req.body.sensor_type; // 0 (all)
+	var sensor_id = req.body.sensor_id; // array, 0 (all)
+	var target_room = req.body.target_room; // array
+	var range = req.body.range; // latest, topk, date specified
 
-	if inSensor
+	
 	var returnVal = {
 		sensorName : "스마트 온도/습도센서",
 		sensorId : "000100010000000014",
