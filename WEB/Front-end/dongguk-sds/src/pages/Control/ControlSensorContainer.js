@@ -2,12 +2,21 @@ import { useState } from 'react';
 import { HiSearch } from 'react-icons/hi'
 import { AiFillSetting } from 'react-icons/ai';
 import { ControlSensorData } from '../../dummyDatas/ControlSensorData';
+import ControlSettingModal from '../../modal/ControlSettingModal';
 
 function ControlSensorContainer() {
   const [checkedItems, setCheckedItems] = useState([]);
   const [searchName, setSearchName] = useState("");
   const [filterLocation, setFilterLocation] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  function handleModalClose() {
+    setModalIsOpen(false);
+  }
+  function handleModalOpen() {
+    setModalIsOpen(true);
+  }
 
   function deleteSensors() {
     if(checkedItems.length > 0) {
@@ -48,6 +57,7 @@ function ControlSensorContainer() {
 
   return (
     <div className="w-full h-full">
+    { modalIsOpen ? <ControlSettingModal onClose={handleModalClose}/> : <></>}
       <div className="flex flex-row items-center mb-3 h-10 justify-between">
         <div className="flex w-full h-full mr-3 items-center rounded-lg border border-gray-300 p-2 pl-4 ">
           <HiSearch size="19" color="gray" />
@@ -96,7 +106,7 @@ function ControlSensorContainer() {
                   <td className="w-3/12">{item.column}</td>
                   <td className="w-1/12">{item.status}</td>
                   <td className="w-1/12">{item.cycle}</td>
-                  <td className="w-1/12"><AiFillSetting className="text-gray-800 m-auto" size="20" /></td>
+                  <td className="w-1/12"><div className="flex items-center"><button className="text-gray-800 m-auto" onClick={handleModalOpen}><AiFillSetting size="20"/></button></div></td>
                 </tr>
               )
             })}
