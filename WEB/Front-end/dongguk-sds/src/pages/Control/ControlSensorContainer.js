@@ -20,12 +20,12 @@ function ControlSensorContainer() {
     setModalIsOpen(false);
   }
   function handleModalOpen(name, column, cycle) {
-    setModalIsOpen(true);
     setInfos({
       "Name": name,
       "Column": column,
       "Cycle": cycle
     })
+    setModalIsOpen(true);
   }
 
   function deleteSensors() {
@@ -89,7 +89,7 @@ function ControlSensorContainer() {
         </select>
 
         <button type="button" onClick={deleteSensors} className="w-80 h-full mr-3 text-sm text-white font-semibold shadow-md bg-red-500 rounded-md hover:bg-red-600">DELETE SENSOR</button>
-        <button type="button" className="w-80 h-full text-sm text-white font-semibold shadow-md bg-blue-500 rounded-md hover:bg-blue-600">ADD SENSOR</button>
+        <button type="button" onClick={() => handleModalOpen('', '', '')} className="w-80 h-full text-sm text-white font-semibold shadow-md bg-blue-500 rounded-md hover:bg-blue-600">ADD SENSOR</button>
       </div>
 
       <div className="rounded-lg border border-gray-300 p-1">

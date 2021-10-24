@@ -16,16 +16,17 @@ function ControlDeviceContainer() {
     "Cycle": ''
   });
 
+
   function handleModalClose() {
     setModalIsOpen(false);
   }
   function handleModalOpen(name, column, cycle) {
-    setModalIsOpen(true);
     setInfos({
       "Name": name,
       "Column": column,
       "Cycle": cycle
     })
+    setModalIsOpen(true);
   }
 
   function deleteDevices() {
@@ -89,7 +90,7 @@ function ControlDeviceContainer() {
         </select>
 
         <button type="button" onClick={deleteDevices} className="w-80 h-full mr-3 text-sm text-white font-semibold shadow-md bg-red-500 rounded-md hover:bg-red-600">DELETE DEVICE</button>
-        <button type="button" className="w-80 h-full text-sm text-white font-semibold shadow-md bg-blue-500 rounded-md hover:bg-blue-600">ADD DEVICE</button>
+        <button type="button" onClick={() => handleModalOpen('', '', '')} className="w-80 h-full text-sm text-white font-semibold shadow-md bg-blue-500 rounded-md hover:bg-blue-600">ADD DEVICE</button>
 
       </div>
 
@@ -116,7 +117,7 @@ function ControlDeviceContainer() {
                   <td className="w-3/12">{item.column}</td>
                   <td className="w-1/12">{item.status}</td>
                   <td className="w-1/12">{item.cycle}</td>
-                  <td className="w-1/12"><div className="flex items-center"><button className="text-gray-800 m-auto" onClick={() => handleModalOpen(item.name, item.column, item.cycle)}><AiFillSetting size="20"/></button></div></td>
+                  <td className="w-1/12"><div className="flex items-center"><button className="text-gray-800 m-auto" onClick={() => handleModalOpen(item.name, item.column, item.cycle, "edit")}><AiFillSetting size="20"/></button></div></td>
                 </tr>
               )
             })}

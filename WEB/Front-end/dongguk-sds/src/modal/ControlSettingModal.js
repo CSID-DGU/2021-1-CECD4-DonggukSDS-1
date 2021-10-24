@@ -1,6 +1,8 @@
+import { useState } from 'react';
 function ControlSettingModal({ info, onClose }) {
+
     function submit() {
-        // 변경 내용 저장
+        // 변경 내용 저장, 서버 통신
         onClose()
     }
     function cancel() {
@@ -13,7 +15,7 @@ function ControlSettingModal({ info, onClose }) {
                 <input type="text" placeholder="Column" defaultValue={info.Column} className="rounded-lg text-sm w-full"/>
                 <input type="number" placeholder="Cycle" defaultValue={info.Cycle} className="rounded-lg text-sm w-full"/>
                 <button type="submit" onClick={submit} className="px-4 py-3 text-sm text-white font-semibold bg-blue-500 rounded-md hover:bg-blue-600 ">APPLY</button>
-                <button type="button" onClick={cancel} className="text-sm text-gray-400 font-semibold underline w-1/5">CANCEL</button>
+                <button type="button" onClick={cancel} className="text-sm text-gray-400 font-semibold underline">CANCEL</button>
             </div>
 
         </div>
