@@ -10,12 +10,22 @@ function ControlDeviceContainer() {
   const [filterLocation, setFilterLocation] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [info, setInfos] = useState({
+    "Name": '',
+    "Column": '',
+    "Cycle": ''
+  });
 
   function handleModalClose() {
     setModalIsOpen(false);
   }
-  function handleModalOpen() {
+  function handleModalOpen(name, column, cycle) {
     setModalIsOpen(true);
+    setInfos({
+      "Name": name,
+      "Column": column,
+      "Cycle": cycle
+    })
   }
 
   function deleteDevices() {
@@ -57,7 +67,7 @@ function ControlDeviceContainer() {
 
   return (
     <div className="w-full h-full">
-      { modalIsOpen ? <ControlSettingModal onClose={handleModalClose}/> : <></>}
+      { modalIsOpen ? <ControlSettingModal info={info} onClose={handleModalClose}/> : <></>}
       <div className="flex flex-row items-center mb-3 h-10 justify-between">
         <div className="flex w-full h-full mr-3 items-center rounded-lg border border-gray-300 p-2 pl-4 ">
           <HiSearch size="19" color="gray" />
@@ -106,7 +116,7 @@ function ControlDeviceContainer() {
                   <td className="w-3/12">{item.column}</td>
                   <td className="w-1/12">{item.status}</td>
                   <td className="w-1/12">{item.cycle}</td>
-                  <td className="w-1/12"><div className="flex items-center"><button className="text-gray-800 m-auto" onClick={handleModalOpen}><AiFillSetting size="20"/></button></div></td>
+                  <td className="w-1/12"><div className="flex items-center"><button className="text-gray-800 m-auto" onClick={() => handleModalOpen(item.name, item.column, item.cycle)}><AiFillSetting size="20"/></button></div></td>
                 </tr>
               )
             })}

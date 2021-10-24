@@ -12,7 +12,7 @@ export var ControlSensorData = [
     id: 1,
     name: '스마트 콘센트',
     location: '신공학관 3층 3106',
-    column: '	3106_power_socket_01',
+    column: '3106_power_socket_01',
     status: 'ON',
     cycle: 720
   },
