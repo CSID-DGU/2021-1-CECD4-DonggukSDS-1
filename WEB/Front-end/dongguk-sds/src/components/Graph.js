@@ -12,17 +12,12 @@ function Graph() {
         <Draggable
             bounds="parent"
         >
-            <div className="w-max h-auto mb-6 rounded-lg border border-gray-300 p-6 resize overflow-hidden">
-                <div className="flex flex-row items-center justify-between mb-3">
+            <div className="flex flex-col w-max h-auto rounded-lg border border-gray-300 p-6 resize overflow-hidden">
+                <div className="flex flex-row items-center justify-between">
                     <p className="font-bold text-base">신공학관 전체 전기 사용량</p>
                     <AiFillSetting className="text-gray-400" size="20" />
                 </div>
-                <div className="flex h-full pb-10">
-                    <ResponsiveBar data={data} keys={["earnings"]} indexBy="quarter" />
-                </div>
-
-
-
+                <ResponsiveBar margin={{ top: 30, bottom: 30, left: 50, right: 30}} data={data} keys={["earnings"]} indexBy="quarter" />
             </div>
         </Draggable>
     );
