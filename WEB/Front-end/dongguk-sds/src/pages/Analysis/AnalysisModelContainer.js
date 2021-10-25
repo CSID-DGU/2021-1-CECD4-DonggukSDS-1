@@ -2,7 +2,7 @@ import { HiSearch } from 'react-icons/hi'
 import { AiFillSetting } from 'react-icons/ai'
 import { useState } from 'react';
 
-var AnalysisModelData = ["강의 종료 모델", "인물 존재 감지"]
+var AnalysisModelData = ["강의 종료 모델", "인물 존재 감지"] // TO-DO : 데이터 제대로 받아온거 정해지면 수정해야함.
 function AnalysisModelContainer() {
   const [checkedItems, setCheckedItems] = useState([]);
   const [searchName, setSearchName] = useState("");

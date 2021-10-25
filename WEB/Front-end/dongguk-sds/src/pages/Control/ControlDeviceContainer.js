@@ -16,6 +16,10 @@ function ControlDeviceContainer() {
     "Cycle": ''
   });
 
+  function filterList() {
+    return ControlDeviceData.filter((ele) => ele.name.includes(searchName) && ele.location.includes(filterLocation) && ele.status.includes(filterStatus));
+  }
+
 
   function handleModalClose() {
     setModalIsOpen(false);
@@ -54,7 +58,7 @@ function ControlDeviceContainer() {
   function checkAllItemsHandler(checked) {
     if(checked) {
       const idArray = [];
-      ControlDeviceData.forEach((ele) => idArray.push(ele.id));
+      filterList().forEach((ele) => idArray.push(ele.id));
       setCheckedItems(idArray);
     } else {
       setCheckedItems([]);
@@ -98,7 +102,7 @@ function ControlDeviceContainer() {
         <table className="table-fixed w-full">
           <thead>
             <tr className="h-10 text-sm font-light text-gray-300 text-left border-b-2">
-              <th className="w-1/12 text-center"><input type="checkbox" name="selected_all" onChange={(e) => checkAllItemsHandler(e.target.checked)} checked={ checkedItems.length === ControlDeviceData.length }/></th>
+              <th className="w-1/12 text-center"><input type="checkbox" name="selected_all" onChange={(e) => checkAllItemsHandler(e.target.checked)} checked={ checkedItems.length === filterList().length && filterList().length !== 0 }/></th>
               <th className="w-2/12">Name</th>
               <th className="w-3/12">Location</th>
               <th className="w-3/12">Column</th>
@@ -108,10 +112,10 @@ function ControlDeviceContainer() {
             </tr>
           </thead>
           <tbody className="text-sm font-normal divide-y divide-gray-200">
-            {ControlDeviceData.filter((ele) => ele.name.includes(searchName) && ele.location.includes(filterLocation) && ele.status.includes(filterStatus)).map((item, index) => {
+            {filterList().map((item, index) => {
               return (
                 <tr className="m-4 h-12" key={index}>
-                  <td className="w-1/12 text-center"><input type="checkbox" name="selected" value={`ROW_` + index} onChange={(e) => checkItemHandler(item.id, e.target.checked)} checked={checkedItems.length === ControlDeviceData.length || checkedItems.includes(item.id)} /></td>
+                  <td className="w-1/12 text-center"><input type="checkbox" name="selected" value={`ROW_` + index} onChange={(e) => checkItemHandler(item.id, e.target.checked)} checked={checkedItems.length === filterList().length || checkedItems.includes(item.id)} /></td>
                   <td className="w-2/12">{item.name}</td>
                   <td className="w-3/12">{item.location}</td>
                   <td className="w-3/12">{item.column}</td>

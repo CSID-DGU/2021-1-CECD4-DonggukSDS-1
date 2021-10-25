@@ -44,7 +44,7 @@ function NotificationListPage() {
   function checkAllItemsHandler(checked) {
     if(checked) {
       const idArray = [];
-      NotificationData.forEach((ele) => idArray.push(ele.id)); // 고쳐야함, Search 결과에서 전체 선택 삭제하는 것으로
+      NotificationData.filter((ele) => ele.title.includes(searchTitle)).forEach((ele) => idArray.push(ele.id)); // 찾은 결과 기준으로 id를 집어 넣음
       setCheckedItems(idArray);
     } else {
       setCheckedItems([]);
@@ -72,7 +72,7 @@ function NotificationListPage() {
         <table className="table-fixed w-full">
           <thead>
             <tr className="h-10 text-sm font-light text-gray-300 text-left border-b-2">
-              <th className="w-1/12 text-center"><input type="checkbox" name="selected_all" onChange={(e) => checkAllItemsHandler(e.target.checked)} checked={ checkedItems.length === NotificationData.length }/></th>
+              <th className="w-1/12 text-center"><input type="checkbox" name="selected_all" onChange={(e) => checkAllItemsHandler(e.target.checked)} checked={ checkedItems.length === NotificationData.filter((ele) => ele.title.includes(searchTitle)).length }/></th>
               <th className="w-8/12">Title</th>
               <th className="w-2/12">Author</th>
               <th className="w-2/12">Date</th>
