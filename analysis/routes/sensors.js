@@ -30,7 +30,201 @@ var debug = require('./debugTool');
 
 */
 
+/*
+/sensor/room
+ - params : room_id
+ - 해당 강의실에 존재하는 센서들의 종류와 아이디를 리턴한다.
+ examples
+ 	body.room_id = null
+ 	body.room_number = 5147
+ 	return ex)
+ 	{
+    "return": [
+        {
+            "sensor_id": "000100010000000011",
+            "sensor_type": 1,
+            "sensor_name": "스마트 온도/습도센서",
+            "room_id": 11,
+            "room_name": "신공학관 5147호",
+            "room_number": 5147
+        },
+        {
+            "sensor_id": "000100010000000031",
+            "sensor_type": 2,
+            "sensor_name": "스마트 에너지 미터",
+            "room_id": 11,
+            "room_name": "신공학관 5147호",
+            "room_number": 5147
+        }]
+    }
+    찾는 센서 정보가 존재하지 않으면 return 키에 -1 값을 리턴한다.
+*/
+router.post('/room', function(req,res,next){
+	console.log(req.body)
+	var room_id = req.body.room_id
+	var room_number = req.body.room_number
+	db_utils.identify_room_sensors(room_id, room_number, function(err, sensors){
+		if(err)
+		{
+			console.log('err')
+			res.send(400,-1)
+		}
 
+		var return_val = {
+			return: sensors
+		}
+		res.send(return_val)
+	})
+})
+
+/*
+restful api
+/sensor/get/type
+ - params : sensor_id, sensor_type
+ - 해당 센서 아이디의 위치와 타입, 그리고 종류를 알 수 있다.
+ - 센서 타입별로 센서의 위치와 아이디를 알 수 있다.
+ - 모든 센서의 타입을 알 수 있다.
+ examples 1)
+ 	body.sensor_id = 000100010000000001
+ 	return ex)
+ 	{
+    "return": {
+        "sensor_id": "000100010000000001",
+        "sensor_type": 1,
+        "sensor_name": "스마트 온도/습도센서",
+        "room_id": 1,
+        "room_name": "신공학관 2158호",
+        "room_number": 2158
+    }
+ examples 2)
+    sensor id를 요청할 때 입력하지 않으면 모든 센서 종류를 리턴한다.
+    body.sensor_id = null
+    return ex)
+    {
+	    "return": [
+	        {
+	            "sensor_type": 1,
+	            "sensor_name": "스마트 온도/습도센서"
+	        },
+	        {
+	            "sensor_type": 2,
+	            "sensor_name": "스마트 에너지 미터"
+	        },
+	        {
+	            "sensor_type": 3,
+	            "sensor_name": "스마트 전등스위치"
+	        },
+	        {
+	            "sensor_type": 4,
+	            "sensor_name": "스마트 콘센트"
+	        },
+	        {
+	            "sensor_type": 5,
+	            "sensor_name": "스마트 IoT레이더 센서"
+	        }
+	    ]
+	}
+examples 3)
+    sensor type만 입력한다면 해당 센서 타입을 가지고 있는 모든 센서 종류를 리턴한다.
+    body.sensor_id = null
+    body.sensor_type = 1
+    return ex)
+    {
+    "return": [
+        {
+            "sensor_id": "000100010000000001",
+            "sensor_type": 1,
+            "sensor_name": "스마트 온도/습도센서",
+            "room_id": 1,
+            "room_name": "신공학관 2158호",
+            "room_number": 2158
+        },
+        {
+            "sensor_id": "000100010000000002",
+            "sensor_type": 1,
+            "sensor_name": "스마트 온도/습도센서",
+            "room_id": 2,
+            "room_name": "신공학관 3101호",
+            "room_number": 3101
+        },
+        {
+            "sensor_id": "000100010000000003",
+            "sensor_type": 1,
+            "sensor_name": "스마트 온도/습도센서",
+            "room_id": 3,
+            "room_name": "신공학관 3106호",
+            "room_number": 3106
+        },
+        {
+            "sensor_id": "000100010000000004",
+            "sensor_type": 1,
+            "sensor_name": "스마트 온도/습도센서",
+            "room_id": 4,
+            "room_name": "신공학관 3107호",
+            "room_number": 3107
+        }
+        ]
+    }
+    찾는 센서 정보가 존재하지 않으면 return 키에 -1 값을 리턴한다.
+*/
+router.post('/get/type', function(req,res,next){
+	console.log(req.body);
+	var sensor_id = req.body.sensor_id
+	var sensor_type = req.body.sensor_type
+	if(sensor_id)
+	{
+		db_utils.identify_sensor_type_by_id(sensor_id, function(err, sensor_info){
+			if(err)
+			{
+				console.log('err')
+				res.send(400,-1)
+			}
+
+			var return_val = {
+				return: sensor_info
+			}
+			res.send(return_val)
+		})
+	}
+	else if(sensor_type)
+	{
+		db_utils.identify_sensor_type_by_type(sensor_type, function(err, sensor_info){
+			if(err)
+			{
+				console.log('err')
+				res.send(400,-1)
+			}
+
+			var return_val = {
+				return: sensor_info
+			}
+			res.send(return_val)
+		})
+	}
+	else
+	{
+		db_utils.get_all_sensor_type(function(err, sensor_info){
+			if(err)
+			{
+				console.log('err')
+				res.send(400,-1)
+			}
+
+			var return_val = {
+				return: sensor_info
+			}
+			res.send(return_val)
+		})
+	}
+})
+
+router.post('/fetch/room', function(req,res,next){
+	console.log(req.body)
+	var room_id = req.body.room_id
+	var sensor_type = req.body.sensor_type
+
+
+})
 /* GET home page. */
 router.post('/fetch', function (req, res, next) {
 	debug.log(req.body);
@@ -40,12 +234,7 @@ router.post('/fetch', function (req, res, next) {
 	var range = req.body.range; // latest, topk, date specified
 
 	
-	var returnVal = {
-		sensorName : "스마트 온도/습도센서",
-		sensorId : "000100010000000014",
-		timestep : "2021-10-06 15:13:42",
-		data : [{"temperature":"23.9","humidity":"73.2","battery":"0"}]
-	}
+	db_utils.
 	res.send(returnVal)
 });
 

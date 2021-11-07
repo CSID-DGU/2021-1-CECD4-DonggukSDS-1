@@ -1,0 +1,35 @@
+CON1:
+  type: what
+  sensor:
+    - 2
+  attribute:
+    - voltage
+  comp:
+    - greater
+  threshold:
+    - 250
+CON2:
+  type: when
+  time: always
+CON3:
+  type: range
+  room_id:
+    - 10
+ACT1:
+  type: control
+  device:
+    - 0
+    - 1
+    - 2
+  action:
+    - off
+ACT2:
+  type: notify
+  action: 
+    - email
+    - message
+    - call
+  target_user_id:
+    - 1
+    - 2
+    - 3

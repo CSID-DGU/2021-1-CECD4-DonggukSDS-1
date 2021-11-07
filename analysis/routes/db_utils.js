@@ -13,6 +13,162 @@ var pool = mysql.createPool({
 });
 
 
+exports.identify_room_by_number = function(room_number, callback){
+  pool.getConnection(function (err, con){
+    query = 'SELECT room_id, room_number, room_number FROM room_info WHERE room_number = ?'
+    con.query(query, [room_number],
+      function (err, result){
+        con.release()
+        if (err){
+          console.error("err : " + err);
+          return callback(err);
+        }
+
+        if (result.length <= 0)
+        {
+          console.log('no_data');
+          return callback(null, -1);
+        }
+        console.log('room_id : ' + JSON.stringify(result));
+        room_infos = result[0];
+        return callback(null, room_infos)
+      }
+    )
+  })
+}
+
+exports.get_all_room = function(callback){
+  pool.getConnection(function (err, con){
+    query = 'SELECT room_id, room_name, room_number FROM room_info'
+    con.query(query, [],
+      function (err, result){
+        con.release()
+        if (err){
+          console.error("err : " + err);
+          return callback(err);
+        }
+
+        if (result.length <= 0)
+        {
+          console.log('no_data');
+          return callback(null, -1);
+        }
+        console.log('rooms : ' + JSON.stringify(result));
+        room_infos = result;
+        return callback(null, room_infos)
+      }
+    )
+  })
+}
+
+exports.identify_sensor_type_by_id = function(sensor_id, callback){
+  pool.getConnection(function (err, con){
+    query = 'SELECT a.sensor_id, a.sensor_type, b.sensor_name, c.room_id, d.room_name, d.room_number FROM sensor_info as a \
+    inner join sensor_type as b on a.sensor_type = b.sensor_type \
+    left join room_sensor as c on a.sensor_id = c.sensor_id \
+    left join room_info as d on c.room_id = d.room_id \
+    WHERE a.sensor_id = ?'
+    con.query(query, [sensor_id],
+      function (err, result){
+        con.release()
+        if (err){
+          console.error("err : " + err);
+          return callback(err);
+        }
+
+        if (result.length <= 0)
+        {
+          console.log('no_data');
+          return callback(null, -1);
+        }
+        console.log('return : ' + JSON.stringify(result));
+        sensor_type = result[0];
+        return callback(null, sensor_type)
+      }
+    )
+  })
+}
+
+exports.identify_sensor_type_by_type = function(sensor_type, callback){
+  pool.getConnection(function (err, con){
+    query = 'SELECT a.sensor_id, a.sensor_type, b.sensor_name, c.room_id, d.room_name, d.room_number FROM sensor_info as a \
+    inner join sensor_type as b on a.sensor_type = b.sensor_type \
+    left join room_sensor as c on a.sensor_id = c.sensor_id \
+    left join room_info as d on c.room_id = d.room_id \
+    WHERE a.sensor_type = ?'
+    con.query(query, [sensor_type],
+      function (err, result){
+        con.release()
+        if (err){
+          console.error("err : " + err);
+          return callback(err);
+        }
+
+        if (result.length <= 0)
+        {
+          console.log('no_data');
+          return callback(null, -1);
+        }
+        console.log('return : ' + JSON.stringify(result));
+        sensor_type = result;
+        return callback(null, sensor_type)
+      }
+    )
+  })
+}
+
+exports.get_all_sensor_type = function(callback){
+  pool.getConnection(function (err, con){
+    query = 'SELECT * FROM sensor_type'
+    con.query(query, [],
+      function (err, result){
+        con.release()
+        if (err){
+          console.error("err : " + err);
+          return callback(err);
+        }
+
+        if (result.length <= 0)
+        {
+          console.log('no_data');
+          return callback(null, -1);
+        }
+        console.log('return : ' + JSON.stringify(result));
+        sensor_type = result;
+        return callback(null, sensor_type)
+      }
+    )
+  })
+}
+
+exports.identify_room_sensors = function(room_id, room_number, callback){
+  pool.getConnection(function (err, con){
+    query = 'SELECT a.sensor_id, a.sensor_type, b.sensor_name, c.room_id, d.room_name, d.room_number FROM sensor_info as a \
+    inner join sensor_type as b on a.sensor_type = b.sensor_type \
+    left join room_sensor as c on a.sensor_id = c.sensor_id \
+    left join room_info as d on c.room_id = d.room_id \
+    WHERE d.room_id = ? or d.room_number = ?'
+    con.query(query, [room_id, room_number],
+      function (err, result){
+        con.release()
+        if (err){
+          console.error("err : " + err);
+          return callback(err);
+        }
+
+        if (result.length <= 0)
+        {
+          console.log('no_data');
+          return callback(null, -1);
+        }
+        console.log('room_id : ' + JSON.stringify(result));
+        sensors = result;
+        return callback(null, sensors)
+      }
+    )
+  })
+}
+
 exports.select_sensor = function(sensor_type, sensor_id, room_id, range,callback) {
   pool.getConnection(function (err, con) {
     // Use the connection
@@ -183,3 +339,17 @@ exports.set_time_rewind = function(timeSec, nickname, roomId, callback)
 }
 
 //"dgu2021sds@)@!"
+
+export.insert_scenario = function(manager_id, scenario_name, sequential_check, update_period, comments, active, callback)
+{
+  current_time = "xx"
+
+  query = 'INSERT INTO scenario (scenario_name, manager_id, sequential_check, comments, period, last_check, active) \
+        VALUES (?, ?, ?, ?, ?, ?, ?)'
+}
+
+export.insert_scenario_content = function(scenario_id, contents, callback)
+{
+  cond_query = 'INSERT INTO condtion (rule)'
+  act_query = 'INSERT INTO action (rule)'
+}

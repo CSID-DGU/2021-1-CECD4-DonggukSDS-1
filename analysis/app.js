@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var rooms = require('./routes/rooms');
 var sensors = require('./routes/sensors');
 var devices = require('./routes/devices');
 var db = require('./routes/db');
@@ -32,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/sensor', sensors);
+app.use('/room', rooms);
 app.use('/device', devices);
 app.use('/db', db);
 
