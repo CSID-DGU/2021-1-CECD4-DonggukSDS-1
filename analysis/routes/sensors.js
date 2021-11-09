@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var db_utils = require('./db_utils');
+var eleastic_utils = require('./elastic_utils')
 var debug = require('./debugTool');
 
 /*
@@ -239,24 +240,6 @@ router.post('/fetch', function (req, res, next) {
 });
 
 
-router.post('/analyze', function(req,res,next){
-	debug.log(req.body)
-	var inRoom = req.body.room;
-
-	var evidnece = {
-		sensorName : "스마트 전등스위치",
-		sensorId : "000100010000000059",
-		timestep : "2021-10-06 15:21:12",
-		data : [{"onoff":"1","on_time":"0"}]
-	}
-	var returnVal = {
-		result : {person : false, inDanger : false, secheduled : false, electricity : "fair", evidence : [evidnece]}
-	}
-	res.send(returnVal)
-})
-
-
-
 /*
 /sensor/get/date
  - params : sensor_id, start_date, end_date
@@ -289,7 +272,7 @@ router.post('/get/date', function(req, res, next) {
    var start_date = req.body.startDate;
    var end_date = req.body.endDate;
 
-   db_utils.get_date_sensingData(sensor_id, start_date, end_date, function(err, data) {
+   eleastic_utils.get_date_sensingData(sensor_id, start_date, end_date, function(err, data) {
       console.log(data);
       res.send(data);
    })
@@ -326,7 +309,7 @@ router.post('/get/top', function(req, res, next) {
     var top_num = req.body.topNum;
 
    console.log(req.body);
-    db_utils.get_top_sensingData(sensor_id, top_num, function(err, data) {
+    eleastic_utils.get_top_sensingData(sensor_id, top_num, function(err, data) {
         console.log(data);
         res.send(data);
     })
