@@ -1,4 +1,6 @@
 import Graph from "../components/Graph";
+import Graph2 from "../components/Graph2";
+import Graph3 from "../components/Graph3";
 
 function DashboardPage() {
   return (
@@ -9,7 +11,8 @@ function DashboardPage() {
       </div>
       <div className="relative flex-1">
         <Graph />
-        <Graph />
+        <Graph2 />
+        <Graph3 />
       </div>
     </div>
   );
