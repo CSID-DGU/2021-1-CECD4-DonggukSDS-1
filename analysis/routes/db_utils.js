@@ -353,3 +353,56 @@ export.insert_scenario_content = function(scenario_id, contents, callback)
   cond_query = 'INSERT INTO condtion (rule)'
   act_query = 'INSERT INTO action (rule)'
 }
+
+exports.get_date_sensingData = async function(sensorId, startDate, endDate, callback) {
+      try {
+         const rs = await elastic.search({
+            index: 'data',
+            body: {
+               "query": {
+                  "bool": {
+                     "must": [
+                        {"match": {
+                           "sen_mng_no": sensorId
+                        }},
+                        {"range": {
+                           "tr_date": {
+                              "gte": startDate,
+                              "lte": endDate
+                           }
+                        }}
+                     ]
+                  }
+               }
+            }
+         });
+
+         return callback(null, rs.hits.hits);
+      }
+      catch (err) {
+         return callback(err);
+      }
+}
+
+exports.get_top_sensingData = async function(sensorId, topNum, callback) {
+  try {
+      const rs = await elastic.search({
+         index:'data',
+         body: {
+            "size": topNum,
+            "query": {
+               "match": {
+                  "sen_mng_no": sensorId
+               }
+            },
+        "sort": [
+          {"tr_seq": "desc"}
+        ]
+         }
+      });
+    return callback(null, rs.hits.hits);
+  }
+  catch (err) {
+      return callback(err);
+  }
+}

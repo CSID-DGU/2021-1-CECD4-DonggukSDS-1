@@ -40,6 +40,7 @@ router.post('/number', function(req, res, next){
 
 /*
 restful api
+/room/all
  - params : x
  - 신공학관의 room id와 정식 명칭을 알 수 있다.
  examples

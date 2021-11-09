@@ -255,4 +255,81 @@ router.post('/analyze', function(req,res,next){
 	res.send(returnVal)
 })
 
+
+
+/*
+/sensor/get/date
+ - params : sensor_id, start_date, end_date
+ - 센서 id와 기간 - start date, end date를 설정하여 기간내에 들어온 센서 데이터를 받아온다.
+ examples 1)
+ 	input ex)
+ 	sensor_id = 000100010000000068
+ 	start_date = 21-10-07 19:00:00
+ 	end_date = 21-10-07 20:00:00
+
+ 	return ex)
+ 	[
+      {
+        "_index" : "data",
+        "_type" : "_doc",
+        "_id" : "2UO1-HwBfY8sxJbEB2KA",
+        "_score" : 1.9582143,
+        "_source" : {
+          "sen_data" : "\"[{\"energy\":\"126.481\",\"power\":\"0.0\",\"current\":\"0.0\",\"voltage\":\"213.483\",\"enable\":\"0\",\"threshold\":\"1000\"}]\"",
+          "sen_mng_no" : "000100010000000068",
+          "tr_seq" : 33759,
+          "ins_date" : "2021-10-30T00:07:47.000Z",
+          "tr_date" : "2021-10-30T00:09:32.000Z"
+        }
+      }
+    ]
+*/
+router.post('/get/date', function(req, res, next) {
+   var sensor_id = req.body.sensorId;
+   var start_date = req.body.startDate;
+   var end_date = req.body.endDate;
+
+   db_utils.get_date_sensingData(sensor_id, start_date, end_date, function(err, data) {
+      console.log(data);
+      res.send(data);
+   })
+})
+
+/*
+/sensor/get/top
+ - params : sensor_id, top_num
+ - 센서 id의 최근 top_num 개의 데이터를 받아온다.
+ examples 1)
+ 	input ex)
+ 	sensor_id = 000100010000000068
+ 	start_date = 1
+
+ 	return ex)
+ 	[
+      {
+        "_index" : "data",
+        "_type" : "_doc",
+        "_id" : "2UO1-HwBfY8sxJbEB2KA",
+        "_score" : 1.9582143,
+        "_source" : {
+          "sen_data" : "\"[{\"energy\":\"126.481\",\"power\":\"0.0\",\"current\":\"0.0\",\"voltage\":\"213.483\",\"enable\":\"0\",\"threshold\":\"1000\"}]\"",
+          "sen_mng_no" : "000100010000000068",
+          "tr_seq" : 33759,
+          "ins_date" : "2021-10-30T00:07:47.000Z",
+          "tr_date" : "2021-10-30T00:09:32.000Z"
+        }
+      }
+    ]
+*/
+router.post('/get/top', function(req, res, next) {
+    var sensor_id = req.body.sensorId;
+    var top_num = req.body.topNum;
+
+   console.log(req.body);
+    db_utils.get_top_sensingData(sensor_id, top_num, function(err, data) {
+        console.log(data);
+        res.send(data);
+    })
+})
+
 module.exports = router;

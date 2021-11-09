@@ -23,7 +23,7 @@ restful api
 */
 router.post('/insert', function(req, res, next){
 	console.log(req.body);
-	var room_number = req.body.scenario_content;
+	var contents = req.body.scenario_content;
 	db_utils.identify_room_by_number(room_number, function(err, room_info){
 		if(err)
 		{
@@ -38,4 +38,17 @@ router.post('/insert', function(req, res, next){
 	})
 })
 
+router.post('/analyze', function(req,res,next){
+	console.log(req.body);
+	var scenario_id = req.body.scenario_id
+	results = is_scenario_on_fire()
+	if (results)
+	{
+		res.send(results)
+	}
+	else
+	{
+		res.send("True")
+	}
+}
 module.exports = router;
