@@ -12,7 +12,7 @@ var pool = mysql.createPool({
   database: "DGUSDS"
 });
 
-
+/* room/number */
 exports.identify_room_by_number = function(room_number, callback){
   pool.getConnection(function (err, con){
     query = 'SELECT room_id, room_number, room_number FROM room_info WHERE room_number = ?'
@@ -37,6 +37,7 @@ exports.identify_room_by_number = function(room_number, callback){
   })
 }
 
+/* room/all */
 exports.get_all_room = function(callback){
   pool.getConnection(function (err, con){
     query = 'SELECT room_id, room_name, room_number FROM room_info'
@@ -61,6 +62,7 @@ exports.get_all_room = function(callback){
   })
 }
 
+/* sensor/get/type */
 exports.identify_sensor_type_by_id = function(sensor_id, callback){
   pool.getConnection(function (err, con){
     query = 'SELECT a.sensor_id, a.sensor_type, b.sensor_name, c.room_id, d.room_name, d.room_number FROM sensor_info as a \
@@ -89,6 +91,7 @@ exports.identify_sensor_type_by_id = function(sensor_id, callback){
   })
 }
 
+/* sensor/get/type */
 exports.identify_sensor_type_by_type = function(sensor_type, callback){
   pool.getConnection(function (err, con){
     query = 'SELECT a.sensor_id, a.sensor_type, b.sensor_name, c.room_id, d.room_name, d.room_number FROM sensor_info as a \
@@ -117,6 +120,7 @@ exports.identify_sensor_type_by_type = function(sensor_type, callback){
   })
 }
 
+/* sensor/get/type */
 exports.get_all_sensor_type = function(callback){
   pool.getConnection(function (err, con){
     query = 'SELECT * FROM sensor_type'
@@ -141,6 +145,7 @@ exports.get_all_sensor_type = function(callback){
   })
 }
 
+/* /sensor/room */
 exports.identify_room_sensors = function(room_id, room_number, callback){
   pool.getConnection(function (err, con){
     query = 'SELECT a.sensor_id, a.sensor_type, b.sensor_name, c.room_id, d.room_name, d.room_number FROM sensor_info as a \
@@ -167,6 +172,30 @@ exports.identify_room_sensors = function(room_id, room_number, callback){
       }
     )
   })
+}
+
+exports.select_sensor_top_n = function(sensor_id, room_id, range, callback){
+  pool.getConnection(function (err, con) {
+    // Use the connection
+    query = 'SELECT * FROM tb_data WHERE sen_mng_no in (?)'
+    con.query(query, [sensor_id],
+      function (err, result) {
+        con.release(); // Don't use the connection here, it has been returned to the pool.
+        if (err) {
+          console.error("err : " + err);
+          return callback(err);
+        }
+        
+        if(result.length <= 0)
+        {
+          debug.log('already exists');
+          return callback(null, -1);
+        }
+        console.log('room_id : ' + JSON.stringify(result));
+        sensors = result;
+        return callback(null, sensors)
+    });
+  }); 
 }
 
 exports.select_sensor = function(sensor_type, sensor_id, room_id, range,callback) {
@@ -218,30 +247,6 @@ exports.insert_user = function(userName,callback) {
   }); 
 }
 
-exports.insert_user = function(userName,callback) {
-  var userId;
-
-  pool.getConnection(function (err, con) {
-    // Use the connection
-    con.query('INSERT INTO user(nickname) VALUES (?)', [userName],
-      function (err, result) {
-        con.release(); // Don't use the connection here, it has been returned to the pool.
-        if (err) {
-          console.error("err : " + err);
-          return callback(err);
-        }
-        
-        if(result.length <= 0)
-        {
-          debug.log('already exists');
-          return callback(null, -1);
-        }
-        userId = result.insertId;
-        console.log("uuuu1 :" + userId);
-        return callback(null,userId);
-    });
-  }); 
-}
 
 exports.create_room = function(roomName, videoId, bangjangId, callback) {
   var roomId; 
@@ -264,56 +269,6 @@ exports.create_room = function(roomName, videoId, bangjangId, callback) {
     });
 
   }); 
-}
-
-exports.get_specific_room_info = function(roomId, callback) {
-  var roomId; 
-  pool.getConnection(function (err, con) {
-    // Use the connection
-    con.query('SELECT roomId, roomName, videoId, videoTimestamp, bangjangId, nickname FROM room left join user on room.bangjangId = user.userId where room.roomId = ?', 
-      [roomId],
-      function (err, rows) {
-        con.release(); // Don't use the connection here, it has been returned to the pool.
-        if (err) {
-          console.error("err : " + err);
-          return callback(err);
-        }
-        else if(rows.length <=0)
-        {
-          return callback(null,0);
-        }
-        console.log("rows : " + JSON.stringify(rows));
-        // console.log("room start>>>> " + rows);
-        //console.log(rows);
-        //rowObjs = JSON.stringify(rows);
-        rowObj = rows[0];
-        console.log(rowObj);
-        //console.log("vId: " + rowObj.videoId)
-        //console.log("vTs: " + rowObj.videoTimestamp)
-        console.log("room end>>>> ");
-
-        return callback(null, rowObj);
-    });
-
-  }); 
-}
-
-exports.get_room_info = function(callback)
-{
-  pool.getConnection(function(err,con){
-    con.query('SELECT roomId, roomName, videoId, videoTimestamp, bangjangId, nickname FROM room left join user on room.bangjangId = user.userId',[],function(err,result){
-      con.release();
-      if(err){
-        console.error('err : ' + err);
-        return callback(err);
-      }
-      if(result.length <= 0)
-      {
-        return callback(null,0);
-      }
-      return callback(null, result);
-    })
-  })
 }
 
 exports.set_time_rewind = function(timeSec, nickname, roomId, callback)
@@ -339,7 +294,7 @@ exports.set_time_rewind = function(timeSec, nickname, roomId, callback)
 }
 
 //"dgu2021sds@)@!"
-
+/* /scenario/insert */
 export.insert_scenario = function(manager_id, scenario_name, sequential_check, update_period, comments, active, callback)
 {
   current_time = "xx"

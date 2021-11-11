@@ -1,6 +1,7 @@
 var express = require('express');
 var debug = require('./debugTool');
 
+// /sensor/get/date
 exports.get_date_sensingData = async function(sensorId, startDate, endDate, callback) {
       try {
          const rs = await elastic.search({
@@ -31,6 +32,7 @@ exports.get_date_sensingData = async function(sensorId, startDate, endDate, call
       }
 }
 
+// /sensor/get/top
 exports.get_top_sensingData = async function(sensorId, topNum, callback) {
   try {
       const rs = await elastic.search({
