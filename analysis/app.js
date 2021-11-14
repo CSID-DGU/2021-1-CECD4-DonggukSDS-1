@@ -96,15 +96,15 @@ setInterval(async() => {
     if(value["time"] >= value["period"]){
       try
       {
-        await scenario.analyze(id)
-        value["time"] = 1;
+        scenario_schedulers[id]["time"] = 1;
+	await scenario.analyze(id)
       }
       catch(err)
       {
       }
     }
     else{
-      value["time"]++;
+      scenario_schedulers[id]["time"]++;
     }
   }
 }, 1000);

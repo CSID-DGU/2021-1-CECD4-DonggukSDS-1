@@ -108,7 +108,7 @@ router.post('/analyze', async function(req,res,next){
 })
 
 // 1 when, 1 range, always room_id
-analyze = async function(scenario_id, callback){
+analyze = async function(scenario_id){
 	try{
 		console.log('scenario_id : ', scenario_id)
 		rules = await db_utils2.get_rules(scenario_id);
@@ -144,29 +144,32 @@ analyze = async function(scenario_id, callback){
 				let condition = what["condition"];
 				let threshold = what["threshold"];
 				for(var j = 0; j < sensor_ids.length; j++){
-					sensor_id = sensor_ids[i]
+					sensor_id = sensor_ids[i].sensor_id;
 					search_data = await elastic.get_date_sensingData(sensor_id, search_time, now);
 					console.log(search_data)
-					for(var k = 0; k < search_data.length; k++){
-						sensing_data = JSON.parse(search_data);
+					for(var k = search_data.length-1; k < search_data.length; k++){
+						console.log('k', search_data[k]._source.sen_data)
+						tar_sen = search_data[k]._source.sen_data
+						sensing_data = JSON.parse(tar_sen.substring(1,tar_sen.length-1));
+						console.log('attribute', sensing_data[0][attribute], attribute)
 						if(condition == "greater"){
-							if(!(sensing_data[attribute] > threshold[0])){
+							if(!(sensing_data[0][attribute] > threshold[0])){
 								trigger = false;
 							}
 						}
 						else if(condition == "less"){
-							if(!(sensing_data[attribute] < threshold[0])){
+							if(!(sensing_data[0][attribute] < threshold[0])){
 								trigger = false;
 							}
 						}
 						else if(condition == "between"){
-							if(!(threshold[0] < sensing_data[attribute] &&
-								sensing_data[attribute] < threshold[1])) {
+							if(!(threshold[0] < sensing_data[0][attribute] &&
+								sensing_data[0][attribute] < threshold[1])) {
 								trigger = false;
 							}
 						}
 						else if(condition == "equal"){
-							if(!(sensing_data[attribute] == threshold[0])){
+							if(!(sensing_data[0][attribute] == threshold[0])){
 								trigger = false;
 							}
 						}
@@ -177,19 +180,29 @@ analyze = async function(scenario_id, callback){
 	}
 	catch(err){
 		console.log(err);
-		return callback(err);
+		return err;
 	}
+
+	var now = new Date();
+	db_utils.pool.getConnection((err, con) => {
+		con.query("update DGUSDS.scenario set last_check = ? where scenario_id = ?", 
+			[now, scenario_id], (err, ret) => {
+			if(err){
+				console.log(err);
+				return err;
+			}
+		})
+	})
 
 	if(trigger){
 		try{
-			var now = new Date();
 			db_utils.pool.getConnection((err, con) => {
-				con.query("update DGUSES.scenario set last_check = '?', \
-					fire = '1' where scenario_id = ?", [now, scenario_id], (err, ret) => {
+				con.query("update DGUSDS.scenario set fire = 1 where scenario_id = ?", 
+					[scenario_id], (err, ret) => {
 					con.release();
 					if(err) {
 						console.log(err);
-						return callback(err);
+						return err;
 					}
 					if(!ret){
 						console.log("update false");
@@ -199,11 +212,11 @@ analyze = async function(scenario_id, callback){
 		}
 		catch(err){
 			console.log(err);
-			return callback(err);
+			return err;
 		}
 		// control server로 room_id, scenario_id를 보낸다
 	}
-	return callback(null, trigger)
+	return trigger
 }
 module.exports = {
 	router:router,

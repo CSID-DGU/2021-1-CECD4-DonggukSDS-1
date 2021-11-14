@@ -1,9 +1,15 @@
 var express = require('express');
 var debug = require('./debugTool');
+var elasticsearch = require('elasticsearch');
+
+const elastic = new elasticsearch.Client({
+hosts: ["http://localhost:9200"]	
+});
 
 // /sensor/get/date
 exports.get_date_sensingData = async function(sensorId, startDate, endDate) {
-      try {
+	console.log('sensor_id', sensorId);
+		try {
          const rs = await elastic.search({
             index: 'data',
             body: {
