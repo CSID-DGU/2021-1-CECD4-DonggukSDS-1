@@ -3,6 +3,7 @@ var router = express.Router();
 var db_utils = require('./db_utils');
 var eleastic_utils = require('./elastic_utils')
 var debug = require('./debugTool');
+var scenario_global = require('./scenario_variables');
 
 /*
 	sensor 데이터 모음집.
@@ -219,11 +220,44 @@ router.post('/get/type', function(req,res,next){
 	}
 })
 
-router.post('/fetch/room', function(req,res,next){
+/*
+restful api
+/sensor/get/room/type
+ - params : room_number, sensor_type
+ - 해당 강의실에 속해있는 특정 type들의 sensor id를 알 수 있다.
+ examples 1)
+ 	body.sensor_id = 000100010000000001
+ 	return ex)
+*/
+router.post('/get/room/type', function(req,res,next){
 	console.log(req.body)
-	var room_id = req.body.room_id
+	var room_number = req.body.room_number
 	var sensor_type = req.body.sensor_type
+	db_utils.select_sensor_by_type_room(room_number, sensor_type, function(err, sensors){
+		if(err)
+		{
+			console.log('err')
+			res.send(400,-1)
+		}
 
+		var return_val = {
+			return: sensors
+		}
+		res.send(return_val)
+	})
+})
+
+router.post('/test', function(req,res,next){
+	console.log(req.body)
+	var scenario_id = 1
+
+	db_utils.get_rules(scenario_id, function(err,result){
+		console.log(result)
+	})
+	db_utils.get_actions(scenario_id, function(err, result){
+		console.log(result)
+	})
+	res.send(202, true)
 
 })
 /* GET home page. */
@@ -315,4 +349,4 @@ router.post('/get/top', function(req, res, next) {
     })
 })
 
-m 
+module.exports = router;

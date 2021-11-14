@@ -33,6 +33,24 @@ var attribute_name = {
 	0 : ["고장 여부"]
 }
 
+var room_id_number = {
+	1 : 2158,
+	2 : 3101,
+	3 : 3106,
+	4 : 3107,
+	5 : 3193,
+	6 : 4142,
+	7 : 4127,
+	8 : 5141,
+	9 : 5143,
+	10 : 5145,
+	11 : 5147,
+	12 : 6141,
+	13 : 6144,
+	14 : 6147,
+
+}
+
 var condition = {
 	type : ["what", "when", "range"],
 	what : {
@@ -45,15 +63,15 @@ var condition = {
 		threshold_range : [1, 1, 2, 1]
 	},
 	when : {
-		keys : ["condition", "threshold"],
-		condition : ["after", "before", "always"],
+		keys : ["time", "threshold"],
+		time : ["after", "before", "always"],
 		threshold : [date, date, no_data],
 		threshold_range : [1, 1, 0]
 	},
 	range : {
-		keys : ["condition", "target"],
-		condition : ["room_ids", "building_id"],
-		target : [text, text]
+		keys : ["room_id"],
+		room_id : ["room_ids", "building_id"],
+		room_id_range : [number, text]
 	}
 }
 
@@ -79,5 +97,6 @@ module.exports = {
 	sensor_name : sensor_name,
 	sensor_attribute : sensor_attribute,
 	condition : condition,
-	action : action
+	action : action,
+	room_id_number : room_id_number
 }

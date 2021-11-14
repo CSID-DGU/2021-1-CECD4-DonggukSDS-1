@@ -1,9 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var db_utils = require('./db_utils');
+var db_utils2 = require('./db_promise')
 var debug = require('./debugTool');
-var scenario_global = require('./scenario_variables')
-global scenario_schedulers = stack()
+var scenario_global = require('./scenario_variables');
+var elastic = require('./elastic_utils');
+
+let scenario_schedulers = {};
+global.scenario_schedulers = scenario_schedulers;
+
+// period : s
+addSchedule = function(id, period){
+	scenario_schedulers[id] = {"time": 0, "period": period};
+}
 
 /*
 restful api
@@ -25,21 +34,25 @@ restful api
 router.post('/insert', function(req, res, next){
 	console.log(req.body);
 	var name = req.body.scenario_name
-	var period = req.body.period
+	var manager_id = req.body.manager_id
+	var sequential_check = req.body.sequential_check
 	var comments = req.body.comments
-	var conditions = req.body.conditions
-	var actions = req.body.actions
-
-	db_utils.insert_scenario(room_number, function(err, room_info){
+	var update_period = req.body.period
+	var active = 1
+	var conditions = JSON.parse(req.body.conditions)
+	var actions = JSON.parse(req.body.actions)
+	console.log(conditions[1])
+	console.log(actions[1])
+	db_utils2.insert_scenario(name, manager_id, sequential_check, comments, update_period, active, conditions, actions, function(err, result){
 		if(err)
 		{
-			console.log('err')
+			console.log(err)
 			res.send(400,-1)
 		}
-
 		var return_val = {
-			return: room_info
+			return: result
 		}
+		addSchedule(result, update_period)
 		res.send(return_val)
 	})
 })
@@ -64,7 +77,7 @@ process_conditions = function(conditions){
 			key_values = conditions[key] 
 			key_domains = global_condition[key]
 			for (key_value in key_values){
-
+				
 			}
 		}
 	}
@@ -74,17 +87,125 @@ process_actions = function(actions){
 	act_type = actions.type
 }
 
-router.post('/analyze', function(req,res,next){
+
+router.post('/analyze', async function(req,res,next){
 	console.log(req.body);
 	var scenario_id = req.body.scenario_id
-	results = is_scenario_on_fire()
-	if (results)
+	try
 	{
-		res.send(results)
+		results = await analyze(scenario_id)
+		console.log(results)
+		var return_val = {
+			return: results
+		}
+		res.send(return_val)		
 	}
-	else
+	catch(err)
 	{
-		res.send("True")
+		console.log(err)
+		res.send(err)
 	}
+})
+
+// 1 when, 1 range, always room_id
+analyze = async function(scenario_id, callback){
+	try{
+		console.log('scenario_id : ', scenario_id)
+		rules = await db_utils2.get_rules(scenario_id);
+		console.log('rule_sce : ', rules, scenario_id)
+
+		let when = {};
+		let range = {};
+		for(var i = 0; i < rules.length; i++){
+			let temp = await JSON.parse(rules[i]["rule"]);
+			if(temp["type"] == "when"){
+				when = temp;
+			}
+			else if(temp["type"] == "range"){
+				range = temp;
+			}
+		}
+
+		var now = new Date();
+		var search_time = new Date();
+		search_time.setHours(now.getHours() - 24);
+
+		let trigger = true;
+		for(var i = 0; i < rules.length; i++){
+			let temp = await JSON.parse(rules[i]["rule"]);
+			if(temp["type"] == "what"){
+				what = temp;
+				sensor_type = what["sensor"];
+				room_id = range["room_id"];
+				room_number = scenario_global.room_id_number[room_id]
+				console.log('room_id room_number', room_id, room_number, sensor_type)
+				let sensor_ids = await db_utils2.select_sensor_by_type_room(room_number, sensor_type);
+				let attribute = what["attribute"];
+				let condition = what["condition"];
+				let threshold = what["threshold"];
+				for(var j = 0; j < sensor_ids.length; j++){
+					sensor_id = sensor_ids[i]
+					search_data = await elastic.get_date_sensingData(sensor_id, search_time, now);
+					console.log(search_data)
+					for(var k = 0; k < search_data.length; k++){
+						sensing_data = JSON.parse(search_data);
+						if(condition == "greater"){
+							if(!(sensing_data[attribute] > threshold[0])){
+								trigger = false;
+							}
+						}
+						else if(condition == "less"){
+							if(!(sensing_data[attribute] < threshold[0])){
+								trigger = false;
+							}
+						}
+						else if(condition == "between"){
+							if(!(threshold[0] < sensing_data[attribute] &&
+								sensing_data[attribute] < threshold[1])) {
+								trigger = false;
+							}
+						}
+						else if(condition == "equal"){
+							if(!(sensing_data[attribute] == threshold[0])){
+								trigger = false;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	catch(err){
+		console.log(err);
+		return callback(err);
+	}
+
+	if(trigger){
+		try{
+			var now = new Date();
+			db_utils.pool.getConnection((err, con) => {
+				con.query("update DGUSES.scenario set last_check = '?', \
+					fire = '1' where scenario_id = ?", [now, scenario_id], (err, ret) => {
+					con.release();
+					if(err) {
+						console.log(err);
+						return callback(err);
+					}
+					if(!ret){
+						console.log("update false");
+					}
+				})
+			})
+		}
+		catch(err){
+			console.log(err);
+			return callback(err);
+		}
+		// control server로 room_id, scenario_id를 보낸다
+	}
+	return callback(null, trigger)
 }
-module.exports = router;
+module.exports = {
+	router:router,
+	analyze:analyze
+};

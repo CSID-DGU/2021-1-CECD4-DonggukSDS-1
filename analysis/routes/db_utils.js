@@ -11,6 +11,7 @@ var pool = mysql.createPool({
   port : 13062,
   database: "DGUSDS"
 });
+exports.pool = pool
 
 /* room/number */
 exports.identify_room_by_number = function(room_number, callback){
@@ -174,6 +175,35 @@ exports.identify_room_sensors = function(room_id, room_number, callback){
   })
 }
 
+// /sensor/get/room/type
+exports.select_sensor_by_type_room = function(room_number, sensor_type, callback){
+  pool.getConnection(function (err, con){
+    query = 'SELECT a.sensor_id, a.sensor_type, b.sensor_name, c.room_id, d.room_name, d.room_number FROM sensor_info as a \
+    inner join sensor_type as b on a.sensor_type = b.sensor_type \
+    left join room_sensor as c on a.sensor_id = c.sensor_id \
+    left join room_info as d on c.room_id = d.room_id \
+    WHERE d.room_number = ? and a.sensor_type = ?'
+    con.query(query, [room_number, sensor_type],
+      function (err, result){
+        con.release()
+        if (err){
+          console.error("err : " + err);
+          return callback(err);
+        }
+
+        if (result.length <= 0)
+        {
+          console.log('no_data');
+          return callback(null, -1);
+        }
+        console.log('room_id : ' + JSON.stringify(result));
+        sensors = result;
+        return callback(null, sensors)
+      }
+    )
+  })
+}
+
 exports.select_sensor_top_n = function(sensor_id, room_id, range, callback){
   pool.getConnection(function (err, con) {
     // Use the connection
@@ -294,16 +324,9 @@ exports.set_time_rewind = function(timeSec, nickname, roomId, callback)
 }
 
 //"dgu2021sds@)@!"
-/* /scenario/insert */
-export.insert_scenario = function(manager_id, scenario_name, sequential_check, update_period, comments, active, callback)
-{
-  current_time = "xx"
 
-  query = 'INSERT INTO scenario (scenario_name, manager_id, sequential_check, comments, period, last_check, active) \
-        VALUES (?, ?, ?, ?, ?, ?, ?)'
-}
 
-export.insert_scenario_content = function(scenario_id, contents, callback)
+exports.insert_scenario_content = function(scenario_id, contents, callback)
 {
   cond_query = 'INSERT INTO condtion (rule)'
   act_query = 'INSERT INTO action (rule)'
