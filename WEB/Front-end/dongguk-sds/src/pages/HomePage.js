@@ -2,18 +2,21 @@ import { Link } from 'react-router-dom'
 import { AiFillNotification } from 'react-icons/ai';
 import { RiErrorWarningFill } from 'react-icons/ri';
 import { NotificationData } from '../dummyDatas/NotificationData';
+import Graph from "../components/Graph";
 
 function HomePage() {
   const dateInstance = new Date()
   const todayString = `${dateInstance.getFullYear()}.${dateInstance.getMonth()}.${dateInstance.getDate()}`
   const todayNotificationList = NotificationData.filter((ele) => (ele.date === todayString))
+          //<p className="font-medium text-xs text-gray-400 mb-1">2021-11- 01:51:00</p>
   return (
     <div className="flex flex-col w-full h-full px-7 py-3">    
       <div className="h-3/5 w-full mb-6 rounded-lg border border-gray-300 p-6">
-          <p className="font-bold text-base mb-1">신공학관 전체 전기 사용량</p>
-          <p className="font-medium text-xs text-gray-400 mb-1">2021-05-16 01:51:00</p>
+          <p className="font-bold text-base mb-1">신공학관 5층 전기 사용량</p>
           <div>
-            그래프 들어갈 자리
+            <div className="relative flex-1">
+              <Graph></Graph>
+            </div>
           </div>
 
       </div>
@@ -49,8 +52,8 @@ function HomePage() {
             <table className="table-fixed w-full mt-3">
               <tbody className="text-sm font-normal text-left divide-y divide-gray-200">
                 <tr className="m-4 h-12">
-                  <td className="w-6/12">스마트 전등스위치</td>
-                  <td className="w-6/12 text-gray-400 text-right">신공학관 4층 4011</td>
+                  <td className="w-6/12">스마트 레이더센서</td>
+                  <td className="w-6/12 text-gray-400 text-right">신공학관 5층 5147</td>
                 </tr>                
               </tbody>
             </table>

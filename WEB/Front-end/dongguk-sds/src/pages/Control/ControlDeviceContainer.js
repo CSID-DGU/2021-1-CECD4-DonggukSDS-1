@@ -114,12 +114,12 @@ function ControlDeviceContainer() {
           <tbody className="text-sm font-normal divide-y divide-gray-200">
             {filterList().map((item, index) => {
               return (
-                <tr className="m-4 h-12" key={index}>
+                <tr className="m-4 h-12 items-center" key={index}>
                   <td className="w-1/12 text-center"><input type="checkbox" name="selected" value={`ROW_` + index} onChange={(e) => checkItemHandler(item.id, e.target.checked)} checked={checkedItems.length === filterList().length || checkedItems.includes(item.id)} /></td>
                   <td className="w-2/12">{item.name}</td>
                   <td className="w-3/12">{item.location}</td>
                   <td className="w-3/12">{item.column}</td>
-                  <td className="w-1/12">{item.status}</td>
+                  <td className="w-1/12"><button type="button" className="w-1/3 h-full mr-10 text-sm text-white font-semibold shadow-md bg-blue-500 rounded-md hover:bg-red-600 items-center">ON</button></td>
                   <td className="w-1/12">{item.cycle}</td>
                   <td className="w-1/12"><div className="flex items-center"><button className="text-gray-800 m-auto" onClick={() => handleModalOpen(item.name, item.column, item.cycle, "edit")}><AiFillSetting size="20"/></button></div></td>
                 </tr>
@@ -130,6 +130,7 @@ function ControlDeviceContainer() {
       </div>
     </div>
   );
+                  //<td className="w-1/12">{item.status}</td>
 }
 
 export default ControlDeviceContainer;

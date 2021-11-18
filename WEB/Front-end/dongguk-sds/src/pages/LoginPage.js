@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import callAPI from "../_utils/apiCaller";
 
 function LoginPage() {
 
@@ -8,15 +9,29 @@ function LoginPage() {
   
   const history = useHistory();
 
-  function submit() {
-    if(userId === "admin" && userPw === "1234") { // 성공
+  async function submit() {
+    /*if(userId === "admin" && userPw === "1234") { // 성공
       sessionStorage.setItem("userId", userId);
       history.push("/Home");
     } else {
       alert("아이디, 패스워드가 일치하지 않습니다.");
       document.location.href = "/Login"
+    }*/
+    try {
+      if(userId && userPw) {
+        callAPI('users/login', 'POST', null, {userId:userId, userPw:userPw}).then(res => {
+          if(res.data.msg === 'success'){
+            localStorage.setItem('user', res.data.name);
+            localStorage.setItem('role', res.data.role);
+            history.push("/Home");
+          } else {
+            alert(res.data.msg);
+          }
+        })
+      }
+    } catch(e) {
+      console.log(e);
     }
-    
   }
 
   function signup() {
