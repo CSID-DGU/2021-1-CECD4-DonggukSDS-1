@@ -21,6 +21,7 @@ function ControlSensorContainer() {
 
   useEffect(() => {
     callAPI('sensor/room', 'POST', null, {room_number: 5147}).then(res => {
+      console.log(res.data.return);
       setSensorData(res.data.return);
     })
   }, []);
@@ -125,9 +126,9 @@ function ControlSensorContainer() {
                 <tr className="m-4 h-12" key={index}>
                   <td className="w-1/12 text-center"><input type="checkbox" name="selected" value={`ROW_` + index} onChange={(e) => checkItemHandler(item.id, e.target.checked)} checked={checkedItems.length === filterList().length || checkedItems.includes(item.id)} /></td>
                   <td className="w-2/12">{item.sensor_name}</td>
-                  <td className="w-3/12">{item.room_name}</td>
+                  <td className="w-3/12"><div>{item.room_name}</div></td>
                   <td className="w-3/12">{item.sensor_id}</td>
-                  <td className="w-1/12">정상</td>
+                  <td className="w-1/12">{item.status}</td>
                   <td className="w-1/12">{item.sensor_type}</td>
                   <td className="w-1/12"><div className="flex items-center"><button className="text-gray-800 m-auto" onClick={() => handleModalOpen(item.name, item.column, item.cycle)}><AiFillSetting size="20"/></button></div></td>
                 </tr>

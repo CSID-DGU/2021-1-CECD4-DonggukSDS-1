@@ -13,7 +13,7 @@ exports.get_date_sensingData = async function(sensorId, startDate, endDate) {
          const rs = await elastic.search({
             index: 'data',
             body: {
-               "size": 1000,
+               "size": 3,
                "query": {
                   "bool": {
                      "must": [
@@ -32,7 +32,7 @@ exports.get_date_sensingData = async function(sensorId, startDate, endDate) {
             }
          });
 
-         return rs.hits.hits;
+         return callback(null, rs.hits.hits);
       }
       catch (err) {
          return err;

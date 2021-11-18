@@ -1,6 +1,10 @@
 import Graph from "../components/Graph";
 import Graph2 from "../components/Graph2";
-import Graph3 from "../components/GraphToday";
+import GraphEnergy from "../components/GraphEnergy";
+import GraphPlug from "../components/GraphPlug";
+import GraphAll from "../components/GraphAll";
+import GraphEmer from "../components/GraphEmer";
+import GraphTemp from "../components/GraphTemp";
 import { useState } from 'react'
 
 function DashboardPage() {
@@ -36,7 +40,11 @@ function DashboardPage() {
         <button type="button" className="w-60 h-full text-sm text-white font-semibold ml-1.5 shadow-md bg-blue-500 rounded-md hover:bg-blue-600">ADD GRAPH</button>
       </div>
       <div className="relative flex-1">
-        <Graph3 />
+        {localStorage.user === '총무부1' ? <GraphEnergy /> : null}
+        {localStorage.user === '총무부1' ? <GraphPlug /> : null}
+        {localStorage.user === '총무부2' ? <GraphAll /> : null}
+        {localStorage.user === '정보처' ? <GraphEmer /> : null}
+        {localStorage.user === '정보처' ? <GraphTemp /> : null}
       </div>
     </div>
   );
