@@ -10,18 +10,7 @@ function AnalysisPage() {
 
   return (
     <div className="w-full px-7 py-3">
-      <div className="flex justify-between mb-3">
-        <button className={ page === "model" ? activeClassName+" mr-3" : inActiveClassName+" mr-3" } onClick={ ()=> setPage("model") }>
-          <HiDatabase size="48"/>
-          <span className="text-lg font-medium">Data Analysis Model</span>
-        </button>
-        <button className={ page === "scenario" ? activeClassName : inActiveClassName } onClick={ ()=> setPage("scenario") }>
-          <HiDocumentText size="48"/>
-          <span className="text-lg font-medium">Scenario</span>
-        </button>
-      </div>
-      { page === "model" ? <AnalysisModelContainer/> : <AnalysisScenarioContainer/>}
-      
+      <AnalysisScenarioContainer/>
     </div>
   );
 }
