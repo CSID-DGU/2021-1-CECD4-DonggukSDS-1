@@ -1,11 +1,21 @@
+import AnalysisScenarioModal from '../../modal/AnalysisScenarioModal'
 import { HiSearch } from 'react-icons/hi'
 import { AiFillSetting } from 'react-icons/ai';
 import { useState } from 'react';
+
 
 var AnalysisScenarioData = ["화재 시 시나리오", "강의 시작 10분 전 시나리오"]
 function AnalysisScenarioContainer() {
   const [checkedItems, setCheckedItems] = useState([]);
   const [searchName, setSearchName] = useState("");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  function handleModalClose() {
+    setModalIsOpen(false);
+  }
+  function handleModalOpen(name, column, cycle) {
+    setModalIsOpen(true);
+  }
 
   function deleteScenarios() {
     if(checkedItems.length > 0) {
@@ -48,6 +58,7 @@ function AnalysisScenarioContainer() {
 
   return (
     <div className="w-full h-full">
+            { modalIsOpen ? <AnalysisScenarioModal onClose={handleModalClose}/> : <></>}
       <div className="flex flex-row items-center mb-3 h-10 justify-between">
         <div className="flex w-full h-full mr-3 items-center rounded-lg border border-gray-300 p-2 pl-4 ">
           <HiSearch size="19" color="gray" />
@@ -55,7 +66,7 @@ function AnalysisScenarioContainer() {
         </div>
 
         <button type="button" onClick={deleteScenarios} className="w-80 h-full mr-3 text-sm text-white font-semibold shadow-md bg-red-500 rounded-md hover:bg-red-600">DELETE SCENARIO</button>
-        <button type="button" className="w-80 h-full text-sm text-white font-semibold shadow-md bg-blue-500 rounded-md hover:bg-blue-600">ADD NEW SCENARIO</button>
+        <button type="button" onClick={handleModalOpen} className="w-80 h-full text-sm text-white font-semibold shadow-md bg-blue-500 rounded-md hover:bg-blue-600">ADD NEW SCENARIO</button>
 
       </div>
 
@@ -75,7 +86,8 @@ function AnalysisScenarioContainer() {
                 <tr className="m-4 h-12" key={index}>
                   <td className="w-1/12 text-center"><input type="checkbox" name="selected" value={`ROW_` + index} onChange={(e) => checkItemHandler(index, e.target.checked)} checked={checkedItems.length === AnalysisScenarioData.length || checkedItems.includes(index)} /></td>
                   <td className="w-10/12">{item}</td>
-                  <td className="w-1/12"><AiFillSetting className="text-gray-800 m-auto" size="20" /></td>
+                  <td className="w-1/12"><div className="flex items-center"><button className="text-gray-800 m-auto" onClick={() => handleModalOpen()}><AiFillSetting size="20"/></button></div>
+                  </td>
                 </tr>
               )
             })}
