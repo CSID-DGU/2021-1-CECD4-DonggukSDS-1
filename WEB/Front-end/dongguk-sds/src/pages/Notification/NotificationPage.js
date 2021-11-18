@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NotificationListPage from './NotificationListPage';
 import NotificationReadPage from './NotificationReadPage';
 import NotificationWritePage from './NotificationWritePage';
-function NotificationPage({ match}) {
+function NotificationPage({ match }) {
 
   return (
     <Router>

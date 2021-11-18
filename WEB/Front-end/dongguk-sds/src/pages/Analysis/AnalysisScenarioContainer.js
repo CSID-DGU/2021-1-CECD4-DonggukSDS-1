@@ -2,9 +2,24 @@ import AnalysisScenarioModal from '../../modal/AnalysisScenarioModal'
 import { HiSearch } from 'react-icons/hi'
 import { AiFillSetting } from 'react-icons/ai';
 import { useState } from 'react';
+import { useHistory, Link } from "react-router-dom";
 
 
-var AnalysisScenarioData = ["화재 시 시나리오", "강의 시작 10분 전 시나리오"]
+var AnalysisScenarioData = [
+  {
+    scenario_id: 1,
+    scenario_name: "전기 사용량 분석",
+    comments: '신공 5147 전기 사용량을 분석하여 알람을 보낸다',
+    active: "on",
+    fire: "not"
+  },
+  {
+    scenario_id: 2,
+    scenario_name: "전기 사용량 분석",
+    comments: '신공 5147 온도가 28도 이상이면 에어컨을 킨다',
+    active: "on",
+    fire: "not"
+  }]
 function AnalysisScenarioContainer() {
   const [checkedItems, setCheckedItems] = useState([]);
   const [searchName, setSearchName] = useState("");
@@ -57,7 +72,7 @@ function AnalysisScenarioContainer() {
   }
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full px-7 py-3">
             { modalIsOpen ? <AnalysisScenarioModal onClose={handleModalClose}/> : <></>}
       <div className="flex flex-row items-center mb-3 h-10 justify-between">
         <div className="flex w-full h-full mr-3 items-center rounded-lg border border-gray-300 p-2 pl-4 ">
@@ -75,18 +90,25 @@ function AnalysisScenarioContainer() {
           <thead>
             <tr className="h-10 text-sm font-light text-gray-300 text-left border-b-2">
               <th className="w-1/12 text-center"><input type="checkbox" name="selected_all" onChange={(e) => checkAllItemsHandler(e.target.checked)} checked={ checkedItems.length === AnalysisScenarioData.length }/></th>
-              <th className="w-10/12">Name</th>
-              <th className="w-1/12 text-center">Setting</th>
+              <th className="w-1/12">Scenario ID</th>
+              <th className="w-2/12">Name</th>
+              <th className="w-6/12">Comments</th>
+              <th className="w-1/12 ">Active{"\n"}(ON/OFF)</th>
+              <th className="w-1/12 ">Fire{"\n"}(O/!)</th>
             </tr>
           </thead>
 
           <tbody className="text-sm font-normal divide-y divide-gray-200">
-            {AnalysisScenarioData.filter((ele) => ele.includes(searchName)).map((item, index) => {
+            {AnalysisScenarioData.filter((ele) => ele.scenario_name.includes(searchName)).map((item, index) => { // Link to에서 index->item id로 바꿔야함
               return (
                 <tr className="m-4 h-12" key={index}>
                   <td className="w-1/12 text-center"><input type="checkbox" name="selected" value={`ROW_` + index} onChange={(e) => checkItemHandler(index, e.target.checked)} checked={checkedItems.length === AnalysisScenarioData.length || checkedItems.includes(index)} /></td>
-                  <td className="w-10/12">{item}</td>
-                  <td className="w-1/12"><div className="flex items-center"><button className="text-gray-800 m-auto" onClick={() => handleModalOpen()}><AiFillSetting size="20"/></button></div>
+                  <td className="w-1/12">{item.scenario_id}</td>
+                  <td className="w-2/12"><Link to={`Analysis/${item.scenario_id}`}>{item.scenario_name}</Link></td>
+                  <td className="w-6/12">{item.comments}</td>
+                  <td className="w-1/12 items-center"><button type="button" className="w-1/3 h-full mr-10 text-sm text-white font-semibold shadow-md bg-blue-500 rounded-md hover:bg-red-600 items-center">ON</button></td> 
+                  <td className="w-1/12 text-center">
+                  <button type="button" className="w-1/3 h-full mr-10 text-sm text-white font-semibold shadow-md bg-blue-500 rounded-md hover:bg-red-600 items-center">ON</button>
                   </td>
                 </tr>
               )
