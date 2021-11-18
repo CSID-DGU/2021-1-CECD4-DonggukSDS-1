@@ -307,6 +307,7 @@ router.post('/get/date', function(req, res, next) {
    var end_date = req.body.endDate;
 
    eleastic_utils.get_date_sensingData(sensor_id, start_date, end_date, function(err, data) {
+		console.log("?")
       console.log(data);
       res.send(data);
    })

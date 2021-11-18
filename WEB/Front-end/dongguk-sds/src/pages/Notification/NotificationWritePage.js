@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { NotificationData } from '../../dummyDatas/NotificationData';
+import callAPI from "../../_utils/apiCaller"
 
 function NotificationWritePage() {
   const history = useHistory();
@@ -11,15 +12,26 @@ function NotificationWritePage() {
   function goToListMode() {
     const dateInstance = new Date()
     const dateString = `${dateInstance.getFullYear()}.${dateInstance.getMonth()}.${dateInstance.getDate()}`
-    const writer = "송혜민"
-    console.log(title, content, dateString);
+    const writer = localStorage.getItem('user');
+    /*console.log(title, content, dateString);
     NotificationData.unshift(   {
       title: `${title}`,
       author: `${writer}`,
       date: `${dateString}`,
       content: `${content}`
-    })
-    history.push("/Notification");
+    })*/
+
+    callAPI('notice/add', 'POST', null, {
+      title: `${title}`,
+      author: `${writer}`,
+      content: `${content}`
+    }).then(res => {
+      if(res.data.msg === 'success'){
+        history.push("/Notification");
+      } else {
+        alert("게시글 등록 실패");
+      }
+    });
   }
 
   return (

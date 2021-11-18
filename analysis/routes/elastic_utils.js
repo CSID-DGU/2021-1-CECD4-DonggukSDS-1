@@ -3,12 +3,12 @@ var debug = require('./debugTool');
 var elasticsearch = require('elasticsearch');
 
 const elastic = new elasticsearch.Client({
-hosts: ["http://localhost:9200"]	
+hosts: ["http://1.238.89.68:9200"]	
 });
 
 // /sensor/get/date
 exports.get_date_sensingData = async function(sensorId, startDate, endDate) {
-	console.log('sensor_id', sensorId);
+	//console.log('sensor_id', sensorId);
 		try {
          const rs = await elastic.search({
             index: 'data',

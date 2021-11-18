@@ -175,6 +175,35 @@ exports.identify_room_sensors = function(room_id, room_number, callback){
   })
 }
 
+/* /deivce/room */
+exports.identify_room_devices = function(room_id, room_number, callback){
+  pool.getConnection(function (err, con){
+    query = 'SELECT a.device_id, a.device_type, b.device_name, c.room_id, d.room_name, d.room_number FROM device_info as a \
+    inner join device_type as b on a.device_type = b.device_type \
+    left join room_device as c on a.device_id = c.device_id \
+    left join room_info as d on c.room_id = d.room_id \
+    WHERE d.room_id = ? or d.room_number = ?'
+    con.query(query, [room_id, room_number],
+      function (err, result){
+        con.release()
+        if (err){
+          console.error("err : " + err);
+          return callback(err);
+        }
+
+        if (result.length <= 0)
+        {
+          console.log('no_data');
+          return callback(null, -1);
+        }
+        console.log('room_id : ' + JSON.stringify(result));
+        sensors = result;
+        return callback(null, sensors)
+      }
+    )
+  })
+}
+
 // /sensor/get/room/type
 exports.select_sensor_by_type_room = function(room_number, sensor_type, callback){
   pool.getConnection(function (err, con){

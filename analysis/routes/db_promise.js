@@ -101,7 +101,7 @@ exports.select_sensor_by_type_room = async function(room_number, sensor_type){
       WHERE d.room_number = ? and a.sensor_type = ?'
     result = await con.query(query, [room_number, sensor_type])
     await con.release()
-    console.log('result2 : ' + JSON.stringify(result[0]));
+    //console.log('result2 : ' + JSON.stringify(result[0]));
     if (result.length <= 0)
     {
       console.log('no_data');

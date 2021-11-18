@@ -1,3 +1,5 @@
 module.exports = {
-    user: require('./user')
+    user: require('./user'),
+    notice: require('./notice'),
+    iot: require('./iot')
 }

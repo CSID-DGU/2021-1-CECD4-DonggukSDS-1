@@ -17,7 +17,7 @@ var scenario = require('./routes/scenario')
 var cors = require('cors');
 var app = express();
 
-app.set('port', 3000);// 52270
+app.set('port', 3002);// 52270
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -107,6 +107,6 @@ setInterval(async() => {
       scenario_schedulers[id]["time"]++;
     }
   }
-}, 1000);
+}, 60000);
 
 module.exports = app;

@@ -32,7 +32,7 @@ restful api
 }
 */
 router.post('/insert', function(req, res, next){
-	console.log(req.body);
+	//console.log(req.body);
 	var name = req.body.scenario_name
 	var manager_id = req.body.manager_id
 	var sequential_check = req.body.sequential_check
@@ -41,8 +41,8 @@ router.post('/insert', function(req, res, next){
 	var active = 1
 	var conditions = JSON.parse(req.body.conditions)
 	var actions = JSON.parse(req.body.actions)
-	console.log(conditions[1])
-	console.log(actions[1])
+	//console.log(conditions[1])
+	//console.log(actions[1])
 	db_utils2.insert_scenario(name, manager_id, sequential_check, comments, update_period, active, conditions, actions, function(err, result){
 		if(err)
 		{
@@ -89,12 +89,12 @@ process_actions = function(actions){
 
 
 router.post('/analyze', async function(req,res,next){
-	console.log(req.body);
+	//console.log(req.body);
 	var scenario_id = req.body.scenario_id
 	try
 	{
 		results = await analyze(scenario_id)
-		console.log(results)
+		//console.log(results)
 		var return_val = {
 			return: results
 		}
@@ -110,9 +110,9 @@ router.post('/analyze', async function(req,res,next){
 // 1 when, 1 range, always room_id
 analyze = async function(scenario_id){
 	try{
-		console.log('scenario_id : ', scenario_id)
+		//console.log('scenario_id : ', scenario_id)
 		rules = await db_utils2.get_rules(scenario_id);
-		console.log('rule_sce : ', rules, scenario_id)
+		//console.log('rule_sce : ', rules, scenario_id)
 
 		let when = {};
 		let range = {};
@@ -138,7 +138,7 @@ analyze = async function(scenario_id){
 				sensor_type = what["sensor"];
 				room_id = range["room_id"];
 				room_number = scenario_global.room_id_number[room_id]
-				console.log('room_id room_number', room_id, room_number, sensor_type)
+				//console.log('room_id room_number', room_id, room_number, sensor_type)
 				let sensor_ids = await db_utils2.select_sensor_by_type_room(room_number, sensor_type);
 				let attribute = what["attribute"];
 				let condition = what["condition"];
@@ -146,12 +146,12 @@ analyze = async function(scenario_id){
 				for(var j = 0; j < sensor_ids.length; j++){
 					sensor_id = sensor_ids[i].sensor_id;
 					search_data = await elastic.get_date_sensingData(sensor_id, search_time, now);
-					console.log(search_data)
+					//console.log(search_data)
 					for(var k = search_data.length-1; k < search_data.length; k++){
-						console.log('k', search_data[k]._source.sen_data)
+						//console.log('k', search_data[k]._source.sen_data)
 						tar_sen = search_data[k]._source.sen_data
 						sensing_data = JSON.parse(tar_sen.substring(1,tar_sen.length-1));
-						console.log('attribute', sensing_data[0][attribute], attribute)
+						//console.log('attribute', sensing_data[0][attribute], attribute)
 						if(condition == "greater"){
 							if(!(sensing_data[0][attribute] > threshold[0])){
 								trigger = false;

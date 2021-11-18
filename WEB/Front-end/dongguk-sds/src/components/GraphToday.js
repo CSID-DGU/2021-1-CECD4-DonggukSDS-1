@@ -1,6 +1,9 @@
 import { AiFillSetting } from 'react-icons/ai';
 import { ResponsiveBar } from "@nivo/bar";
 import Draggable from 'react-draggable';
+import { useEffect } from 'react';
+import analAPI from '../_utils/analCaller';
+
 function Graph() {
     const data = [
         { quarter: 5141, earnings: 95432 },
@@ -8,6 +11,28 @@ function Graph() {
         { quarter: 5145, earnings: 164932 },
         { quarter: 5147, earnings: 123042 }
       ];
+
+    useEffect(() => {
+        let today = new Date();
+        let zero = new Date();
+        zero.setMonth(zero.getMonth() - 1);
+        zero.setHours(zero.getHours() - zero.getHours());
+        zero.setMinutes(zero.getMinutes() - zero.getMinutes());
+        zero.setSeconds(zero.getSeconds() - zero.getSeconds());
+        console.log("as");
+        analAPI('sensor/get/date', 'POST', null, {
+            sensorId: '000100010000000032',
+            startDate: zero,
+            endDate: today
+        }).then(res => {
+            console.log("test");
+            console.log(res.data);
+            console.log("test2");
+        })
+
+        console.log("why");
+    })
+
     return (
         <Draggable
             bounds="parent"

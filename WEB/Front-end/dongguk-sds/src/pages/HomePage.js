@@ -12,7 +12,7 @@ function HomePage() {
   return (
     <div className="flex flex-col w-full h-full px-7 py-3">    
       <div className="h-3/5 w-full mb-6 rounded-lg border border-gray-300 p-6">
-          <p className="font-bold text-base mb-1">신공학관 5층 전기 사용량</p>
+          <p className="font-bold text-base mb-1">주요 그래프</p>
           <div>
             <div className="relative flex-1">
               <Graph></Graph>
@@ -33,7 +33,7 @@ function HomePage() {
                 {todayNotificationList.map((item, index) => {
                   return (
                     <tr className="m-4 h-12" key={index}>
-                      <td className="w-9/12"><Link to={`Notification/${index}`}>{item.title}</Link></td>
+                      <td className="w-9/12"><Link to={`Notification/${item.id}`}>{item.title}</Link></td>
                       <td className="w-3/12 text-gray-400 text-right">{item.author}</td>
                     </tr>
                   )
@@ -52,8 +52,8 @@ function HomePage() {
             <table className="table-fixed w-full mt-3">
               <tbody className="text-sm font-normal text-left divide-y divide-gray-200">
                 <tr className="m-4 h-12">
-                  <td className="w-6/12">스마트 레이더센서</td>
-                  <td className="w-6/12 text-gray-400 text-right">신공학관 5층 5147</td>
+                  <td className="w-6/12"></td>
+                  <td className="w-6/12 text-gray-400 text-right"></td>
                 </tr>                
               </tbody>
             </table>

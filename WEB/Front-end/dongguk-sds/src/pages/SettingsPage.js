@@ -22,6 +22,7 @@ function SettingsPage() {
 
   function logout() {
     sessionStorage.clear();
+    localStorage.clear();
     window.location.replace("/")
   }
 

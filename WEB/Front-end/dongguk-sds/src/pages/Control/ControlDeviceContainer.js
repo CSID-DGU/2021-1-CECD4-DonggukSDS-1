@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HiSearch } from 'react-icons/hi'
 import { AiFillSetting } from 'react-icons/ai'
 import { ControlDeviceData } from '../../dummyDatas/ControlDeviceData';
 import ControlSettingModal from '../../modal/ControlSettingModal';
+
+import callAPI from '../../_utils/apiCaller'
 
 function ControlDeviceContainer() {
   const [checkedItems, setCheckedItems] = useState([]);
@@ -15,9 +17,18 @@ function ControlDeviceContainer() {
     "Column": '',
     "Cycle": ''
   });
+  const [DeviceData, setDeviceData] = useState(ControlDeviceData);
+
+  useEffect(() => {
+    callAPI('device/room', 'POST', null, {room_number: 5147}).then(res => {
+      setDeviceData(res.data.return);
+    })
+  }, []);
+
+  console.log(DeviceData);
 
   function filterList() {
-    return ControlDeviceData.filter((ele) => ele.name.includes(searchName) && ele.location.includes(filterLocation) && ele.status.includes(filterStatus));
+    return DeviceData.filter((ele) => ele.device_name.includes(searchName) && ele.room_name.includes(filterLocation));
   }
 
 
@@ -105,9 +116,9 @@ function ControlDeviceContainer() {
               <th className="w-1/12 text-center"><input type="checkbox" name="selected_all" onChange={(e) => checkAllItemsHandler(e.target.checked)} checked={ checkedItems.length === filterList().length && filterList().length !== 0 }/></th>
               <th className="w-2/12">Name</th>
               <th className="w-3/12">Location</th>
-              <th className="w-3/12">Column</th>
+              <th className="w-3/12">Id</th>
               <th className="w-1/12">Status</th>
-              <th className="w-1/12">Cycle</th>
+              <th className="w-1/12">Type</th>
               <th className="w-1/12 text-center">Setting</th>
             </tr>
           </thead>
@@ -116,11 +127,11 @@ function ControlDeviceContainer() {
               return (
                 <tr className="m-4 h-12 items-center" key={index}>
                   <td className="w-1/12 text-center"><input type="checkbox" name="selected" value={`ROW_` + index} onChange={(e) => checkItemHandler(item.id, e.target.checked)} checked={checkedItems.length === filterList().length || checkedItems.includes(item.id)} /></td>
-                  <td className="w-2/12">{item.name}</td>
-                  <td className="w-3/12">{item.location}</td>
-                  <td className="w-3/12">{item.column}</td>
+                  <td className="w-2/12">{item.device_name}</td>
+                  <td className="w-3/12">{item.room_name}</td>
+                  <td className="w-3/12">{item.device_id}</td>
                   <td className="w-1/12"><button type="button" className="w-1/3 h-full mr-10 text-sm text-white font-semibold shadow-md bg-blue-500 rounded-md hover:bg-red-600 items-center">ON</button></td>
-                  <td className="w-1/12">{item.cycle}</td>
+                  <td className="w-1/12">{item.device_type}</td>
                   <td className="w-1/12"><div className="flex items-center"><button className="text-gray-800 m-auto" onClick={() => handleModalOpen(item.name, item.column, item.cycle, "edit")}><AiFillSetting size="20"/></button></div></td>
                 </tr>
               )

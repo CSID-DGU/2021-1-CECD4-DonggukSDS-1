@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import callAPI from "../_utils/apiCaller";
 
@@ -8,6 +8,11 @@ function LoginPage() {
   const [userPw, setUserPw] = useState("");
   
   const history = useHistory();
+  
+  useEffect(() => {
+    if(localStorage.getItem('user') && localStorage.getItem('role'))
+      history.push("/Home");
+  })
 
   async function submit() {
     /*if(userId === "admin" && userPw === "1234") { // 성공
@@ -44,10 +49,10 @@ function LoginPage() {
           <input type="text" value={userId} onChange={(e) => setUserId(e.target.value)} className="rounded-lg text-sm w-full" placeholder="ID"/>
           <input type="password" value={userPw} onChange={(e) => setUserPw(e.target.value)} className="rounded-lg text-sm w-full" placeholder="Password"/>
           <button type="submit" onClick={submit} className="px-4 py-3 w-full text-sm text-white font-semibold bg-blue-500 rounded-md hover:bg-blue-600 ">LOGIN</button>
-          <button type="button" onClick={signup} className="text-sm text-gray-400 font-semibold underline w-1/5">SIGN UP</button>
        </div>
     </div>
   );
 }
+          //<button type="button" onClick={signup} className="text-sm text-gray-400 font-semibold underline w-1/5">SIGN UP</button>
 
 export default LoginPage;
