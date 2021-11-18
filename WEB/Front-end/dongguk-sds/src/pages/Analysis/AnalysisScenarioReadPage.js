@@ -56,7 +56,7 @@ function AnalysisScenarioReadPage({ match }) {
     ]);
 
     function edit() {
-        history.push(`/edit/${no}`);
+        history.push(`/${no}/edit`);
     }
 
     function back() {

@@ -82,7 +82,7 @@ function AnalysisScenarioEditPage({ match }) {
 
                     <tbody className="text-sm font-normal divide-y divide-gray-200">
                         <tr className="m-4 h-12">
-                            <td className="w-1/12"><input type="text" value={AnalysisScenarioData.scenario_id}/></td>
+                            <td className="w-1/12">{AnalysisScenarioData.scenario_id}</td>
                             <td className="w-2/12">{AnalysisScenarioData.scenario_name}</td>
                             <td className="w-6/12">{AnalysisScenarioData.comments}</td>
                             <td className="w-1/12 items-center"><button type="button" className="w-1/3 h-full mr-10 text-sm text-white font-semibold shadow-md bg-blue-500 rounded-md hover:bg-red-600 items-center">ON</button></td>

@@ -10,16 +10,13 @@ function AnalysisPage({ match }) {
   const inActiveClassName = "flex flex-col w-1/2 pb-3 pt-3 rounded-lg border border-gray-300 items-center text-gray-400"
 
   return (
-    
     <Router>
-    <Switch>
-      <Route exact path={match.path} component={AnalysisScenarioContainer} />
-      <Route exact path={`${match.path}/:no`} component={AnalysisScenarioReadPage} />
-      <Route exact path={`${match.path}/edit/:no`} component={AnalysisScenarioEditPage} />
-    </Switch>
-  </Router>
-
-
+      <Switch>
+        <Route exact path={match.path} component={AnalysisScenarioContainer} />
+        <Route exact path={`${match.path}/:no`} component={AnalysisScenarioReadPage} />
+        <Route exact path={`${match.path}/:no/edit`} component={AnalysisScenarioEditPage} />
+      </Switch>
+    </Router>
   );
 }
 
