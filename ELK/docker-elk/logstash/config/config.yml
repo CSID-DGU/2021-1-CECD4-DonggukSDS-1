@@ -1,0 +1,34 @@
+input {
+        jdbc {
+                jdbc_validate_connection => 'true'
+                jdbc_driver_class => "com.mysql.jdbc.Driver"
+                jdbc_driver_library => "/usr/share/logstash/tools/mysql-connector-java-8.0.27.jar"
+                jdbc_connection_string => "jdbc:mysql://1.245.223.69:13062/DGUSDS"
+                jdbc_user => "dgusds"
+                jdbc_password => "dgu2021sds@)@!"
+                use_column_value => 'true'
+                tracking_column => tr_seq
+                last_run_metadata_path => "/home/joohyuk99/workspace/donggukSDS/p/logstash/inspector-index.dat"
+                statement => "select tr_seq, tr_date, sen_mng_no, sen_data, ins_date from tb_data where tr_seq > :sql_last_value order by tr_seq ASC"
+                schedule => "/5 * * * * *"
+        }
+}
+
+filter {
+        date {
+                match => ["tr_date", "yyyyMMddHHmmss"]
+                timezone => "Asia/Seoul"
+                target => "tr_date"
+        }
+        mutate {
+                remove_field => ["@timestamp", "@version"]
+        }
+}
+
+output {
+        elasticsearch {
+                hosts => ["localhost:9200"]
+                index => "data"
+        }
+        stdout {}
+}
